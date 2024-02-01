@@ -24,7 +24,7 @@ const Security = () => {
 					<Input typed="password" label="Enter New Password" />
 					<Input typed="password" label="Confirm New Password" />
 					<Button type="submit" width="-full">
-						Save Passsword
+						Save Password
 					</Button>
 				</form>
 			</div>

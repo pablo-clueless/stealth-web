@@ -15,6 +15,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
 			})
 			if (res.ok) {
 				return NextResponse.json(
+					// !The response object here is an empty object instead of an empty array
 					{ success: true, message: "Transaction retrieved!", data: res.json() },
 					{ status: 201 }
 				)

@@ -45,7 +45,7 @@ const Page = () => {
 					title="Reset Error!"
 					type="error"
 					large
-					description="An error occured. Please try again.">
+					description="An error occurred. Please try again.">
 					<div></div>
 				</Dialog>
 			)}
@@ -56,7 +56,7 @@ const Page = () => {
 					title="Success!"
 					type="success"
 					large
-					description="Instructions to reset your pasword has been sent to your mail.">
+					description="Instructions to reset your password has been sent to your mail.">
 					<div></div>
 				</Dialog>
 			)}

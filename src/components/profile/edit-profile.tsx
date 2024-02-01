@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button, Input, Spinner } from ".."
 
 interface Props {
-  onDismiss: () => void
+	onDismiss: () => void
 }
 
 const EditProfile = (props: Props) => {
