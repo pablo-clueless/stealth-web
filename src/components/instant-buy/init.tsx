@@ -3,6 +3,8 @@ import { ArrowsDownUp, WarningCircle } from "@phosphor-icons/react"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
 import { CurrencyInput } from "@/components/shared/input"
+import { getCurrencyValue } from "@/app/helpers/amount"
+import { SATS_PER_BTC } from "@/config/constants"
 import { Button, Input } from "@/components"
 
 interface Props {
@@ -28,7 +30,7 @@ interface Props {
 	next: () => void
 }
 
-const CurrencyList = ["NGN", "USD", "EUR", "GBP", "CAD", "SAT"]
+const CurrencyList = ["NGN", "USD", "EUR", "GBP", "CAD", "SATS"]
 const CHARGES = 230
 
 const Init = (props: Props) => {
@@ -53,8 +55,14 @@ const Init = (props: Props) => {
 	}
 
 	useEffect(() => {
-		const amountInSats = Number(fields.amount) * (38_794_798.2 * 100_000_000)
+		// ? Where are the params supposed to come from?
+		const { amountInSats } = getCurrencyValue({
+			amount: fields.amount,
+			pricePerSat: SATS_PER_BTC,
+			pricePerUsd: 0,
+		})
 		props.setAmountInSats(amountInSats.toString())
+		//
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fields.amount])
 
@@ -66,7 +74,9 @@ const Init = (props: Props) => {
 			</p>
 			<div className="my-8 flex w-full flex-col">
 				<div
-					className={`flex w-full ${reversed ? "flex-col-reverse" : "flex-col"}`}>
+					className={`flex w-full ${
+						reversed ? "flex-col-reverse" : "flex-col"
+					}`}>
 					<CurrencyInput
 						amount={fields.amount}
 						currency={fields.currency}
@@ -91,7 +101,7 @@ const Init = (props: Props) => {
 						amount={fields.amountInSats}
 						currency="SATS"
 						inputName="amountInSats"
-						disableInput
+						disableInput={!reversed}
 						disableSelect
 						handleAmountChange={handleChange}
 						handleCurrencyChange={handleChange}>
@@ -115,7 +125,9 @@ const Init = (props: Props) => {
 					onChange={handleChange}
 					label="Wallet Address"
 				/>
-				<p className="text-xs">Please paste in your hardware wallet address here</p>
+				<p className="text-xs">
+					Please paste in your hardware wallet address here
+				</p>
 			</div>
 			<div className="mb-28 mt-6">
 				<Input

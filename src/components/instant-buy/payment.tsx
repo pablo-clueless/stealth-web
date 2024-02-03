@@ -75,13 +75,19 @@ const Payment = (props: Props) => {
 				</div>
 				<div className="flex w-full items-center justify-between text-xl font-medium">
 					<p>{formatCurrency(depositInfo.amountPayable)}</p>
-					<p className={`${timer > 0 ? "text-green-500" : "text-red-500"}`}>
+					<p
+						className={`${
+							timer > 0 ? "text-green-500" : "text-red-500"
+						}`}>
 						{formatTime(timer)}
 					</p>
 				</div>
 			</div>
 			<div className="grid w-full grid-cols-2 gap-3">
-				<Button type="button" onClick={props.previous} width="w-full bg-black-600">
+				<Button
+					type="button"
+					onClick={props.previous}
+					width="w-full bg-black-600">
 					Go Back
 				</Button>
 				<Button type="button" onClick={handleSubmit} width="w-full">

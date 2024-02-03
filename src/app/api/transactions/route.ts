@@ -14,9 +14,13 @@ export async function GET(request: NextRequest, response: NextResponse) {
 				headers: { "Content-Type": "application/json" },
 			})
 			if (res.ok) {
+				const data = await res.json()
 				return NextResponse.json(
-					// !The response object here is an empty object instead of an empty array
-					{ success: true, message: "Transaction retrieved!", data: res.json() },
+					{
+						success: true,
+						message: "Transaction retrieved!",
+						data,
+					},
 					{ status: 201 }
 				)
 			} else if (res.status === 400) {
@@ -26,7 +30,10 @@ export async function GET(request: NextRequest, response: NextResponse) {
 				)
 			} else if (res.status === 401) {
 				return NextResponse.json(
-					{ success: false, message: "You're not authorized to make this request!" },
+					{
+						success: false,
+						message: "You're not authorized to make this request!",
+					},
 					{ status: 400 }
 				)
 			} else {
@@ -48,7 +55,11 @@ export async function GET(request: NextRequest, response: NextResponse) {
 		})
 		if (res.ok) {
 			return NextResponse.json(
-				{ success: true, message: "Transactions retrieved!", data: res.json() },
+				{
+					success: true,
+					message: "Transactions retrieved!",
+					data: res,
+				},
 				{ status: 201 }
 			)
 		} else if (res.status === 400) {
@@ -58,7 +69,10 @@ export async function GET(request: NextRequest, response: NextResponse) {
 			)
 		} else if (res.status === 401) {
 			return NextResponse.json(
-				{ success: false, message: "You're not authorized to make this request!" },
+				{
+					success: false,
+					message: "You're not authorized to make this request!",
+				},
 				{ status: 400 }
 			)
 		} else {

@@ -5,7 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import React from "react"
 
 interface CustomDialogProps {
-	children: React.ReactNode
+	children?: React.ReactNode
 	isOpen: boolean
 	onDismiss: () => void
 	title?: string
@@ -49,7 +49,9 @@ const CustomDialog = ({
 					}`}>
 					{type && DialogIcon[type]}
 					<Dialog.Title
-						className={`m-0 font-satoshi text-4xl font-bold ${titleClassName || ""}`}>
+						className={`m-0 font-satoshi text-4xl font-bold ${
+							titleClassName || ""
+						}`}>
 						{title}
 					</Dialog.Title>
 					<Dialog.Description

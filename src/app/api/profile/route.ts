@@ -1,27 +1,20 @@
+import { NextRequest, NextResponse } from "next/server"
 import endpoints from "@/config/endpoints"
-import { NextResponse } from "next/server"
 
-export async function POST(request: Request, response: NextResponse) {
-	const url = endpoints().auth["init-reset-password"]
-	const payload = await request.json()
-	if (!payload) {
-		return NextResponse.json(
-			{ success: false, message: "Invalid JSON body!" },
-			{ status: 400 }
-		)
-	}
+export async function GET(req: NextRequest, res: NextResponse) {
+	const url = endpoints().user.profile
 	try {
 		const res = await fetch(url, {
-			method: "POST",
-			body: JSON.stringify(payload),
+			method: "GET",
 			headers: { "Content-Type": "application/json" },
 		})
 		if (res.status === 201 || res.ok) {
+			const data = await res.json()
 			return NextResponse.json(
 				{
 					success: true,
-					message:
-						"A reset mail has been sent to your email address!",
+					message: "User details retrieved!",
+					data,
 				},
 				{ status: 201 }
 			)

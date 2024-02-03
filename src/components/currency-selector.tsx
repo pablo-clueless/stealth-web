@@ -41,7 +41,9 @@ const CurrencySelector = ({
 								value={currency.code}
 								className={`${index != 0 && "mt-2"}`}>
 								<Select.ItemText>
-									<span className="cursor-pointer text-[14px]">{currency.code}</span>
+									<span className="cursor-pointer text-[14px]">
+										{currency.code}
+									</span>
 								</Select.ItemText>
 							</Select.Item>
 						))}

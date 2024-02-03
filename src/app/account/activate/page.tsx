@@ -1,8 +1,8 @@
 "use client"
 import { useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
-import { Dialog } from "@/components"
+import { Dialog, Spinner } from "@/components"
 
 const Page = () => {
 	const searchParams = useSearchParams()
@@ -12,7 +12,7 @@ const Page = () => {
 	const [data, setData] = useState<any>(null)
 	const [error, setError] = useState("")
 
-	const activate = async () => {
+	const handleActivate = useCallback(async () => {
 		try {
 			setLoading(true)
 			const res = await fetch(`/api/activate?key=${key}`, {
@@ -26,23 +26,24 @@ const Page = () => {
 			}
 			setLoading(false)
 			setData(res)
-		} catch (error: any) {
+		} catch (error) {
+			if (error instanceof Error) {
+				setError(error.message)
+			}
 			setLoading(false)
-			setError(error)
 		}
-	}
+	}, [key])
 
 	useEffect(() => {
-		if (key) activate()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [key])
+		if (key) handleActivate()
+	}, [key, handleActivate])
 
 	if (data)
 		return (
 			<Dialog
 				isOpen={data}
-				onDismiss={() => {}}
-				title="You’ve created your Stealth account"
+				onDismiss={() => setData(null)}
+				title="You've created your Stealth account"
 				type="success"
 				large
 				description="Your account has been activated!">
@@ -54,7 +55,7 @@ const Page = () => {
 		return (
 			<Dialog
 				isOpen={error !== ""}
-				onDismiss={() => {}}
+				onDismiss={() => setError("")}
 				title="Account Activation Error!"
 				type="error"
 				large
@@ -63,7 +64,12 @@ const Page = () => {
 			</Dialog>
 		)
 
-	if (loading) return <div className="h-full w-full">Loading...</div>
+	if (loading)
+		return (
+			<div className="grid h-full w-full place-items-center">
+				<Spinner />
+			</div>
+		)
 }
 
 export default Page

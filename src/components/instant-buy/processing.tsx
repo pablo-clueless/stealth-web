@@ -6,7 +6,7 @@ import { formatCurrency } from "@/app/helpers/amount"
 import { formatTime } from "@/app/helpers/time"
 import { Button } from ".."
 
-const TIME = 60
+const WAIT_PERIOD_IN_SECONDS = 60
 
 interface Props {
 	amountPayable: string
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Processing = (props: Props) => {
-	const [timer, setTimer] = useState(TIME)
+	const [timer, setTimer] = useState(WAIT_PERIOD_IN_SECONDS)
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -40,7 +40,8 @@ const Processing = (props: Props) => {
 				</p>
 			</div>
 			<p className="text-center text-xl font-medium">
-				We are waiting to confirm your transfer. This can take a few minutes.
+				We are waiting to confirm your transfer. This can take a few
+				minutes.
 			</p>
 			<div className="my-24 flex w-full items-center justify-between gap-4">
 				<div className="flex w-10 flex-col items-center gap-1">
@@ -51,7 +52,9 @@ const Processing = (props: Props) => {
 				</div>
 				<div className="h-1 w-full flex-1 rounded bg-black-600 p-[1px]">
 					<div
-						style={{ width: `${(timer / TIME) * 100}%` }}
+						style={{
+							width: `${(timer / WAIT_PERIOD_IN_SECONDS) * 100}%`,
+						}}
 						className="h-full rounded bg-green-100 transition-all duration-100"></div>
 				</div>
 				<div className="flex w-10 flex-col items-center gap-1">
@@ -63,7 +66,9 @@ const Processing = (props: Props) => {
 						</div>
 					)}
 					<p
-						className={`text-xs ${timer > 0 ? "text-black-300" : "text-green-100"}`}>
+						className={`text-xs ${
+							timer > 0 ? "text-black-300" : "text-green-100"
+						}`}>
 						Received
 					</p>
 				</div>

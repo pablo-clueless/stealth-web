@@ -30,9 +30,11 @@ const Page = () => {
 			setEmail("")
 			setLoading(false)
 			setSuccess(true)
-		} catch (error: any) {
+		} catch (error) {
+			if (error instanceof Error) {
+				setError(error.message)
+			}
 			setLoading(false)
-			setError(error)
 		}
 	}
 
@@ -45,9 +47,7 @@ const Page = () => {
 					title="Reset Error!"
 					type="error"
 					large
-					description="An error occurred. Please try again.">
-					<div></div>
-				</Dialog>
+					description="An error occurred. Please try again."></Dialog>
 			)}
 			{success && (
 				<Dialog
@@ -56,17 +56,19 @@ const Page = () => {
 					title="Success!"
 					type="success"
 					large
-					description="Instructions to reset your password has been sent to your mail.">
-					<div></div>
-				</Dialog>
+					description="Instructions to reset your password has been sent to your mail."></Dialog>
 			)}
 			<div className="h-full w-full">
-				<p className="font-satoshi text-[28px] font-bold">Forgot your Password?</p>
-				<p className="font-satoshi text-lg">
-					If you forgot your password, please enter the email address associated with
-					your account to reset your password.
+				<p className="font-satoshi text-[28px] font-bold">
+					Forgot your Password?
 				</p>
-				<form onSubmit={handleSubmit} className="mt-10 flex w-full flex-col">
+				<p className="font-satoshi text-lg">
+					If you forgot your password, please enter the email address
+					associated with your account to reset your password.
+				</p>
+				<form
+					onSubmit={handleSubmit}
+					className="mt-10 flex w-full flex-col">
 					<div className="flex w-full flex-col gap-6">
 						<Input
 							typed="email"
@@ -83,13 +85,18 @@ const Page = () => {
 								width="w-full bg-black-600">
 								Back to Log In
 							</Button>
-							<Button type="submit" width="w-full" disabled={loading}>
+							<Button
+								type="submit"
+								width="w-full"
+								disabled={loading}>
 								{loading ? <Spinner /> : "Send Reset Email"}
 							</Button>
 						</div>
 						<p className="flex items-center justify-center text-center">
 							Don&apos;t have an account yet?
-							<Link href="/account/register" className="link ml-1 text-alt-orange-100">
+							<Link
+								href="/account/register"
+								className="link ml-1 text-alt-orange-100">
 								Create account
 							</Link>
 						</p>

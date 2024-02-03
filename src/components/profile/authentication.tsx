@@ -1,13 +1,23 @@
-"use client"
-const Authentication = () => {
+import { UserProps } from "@/types/profile"
+import { Avatar } from ".."
+
+const Authentication = async (props: UserProps) => {
 	return (
 		<div className="h-[644px] w-full rounded-lg border border-black-500 bg-black-700 p-10">
 			<div className="flex w-full items-center justify-between">
 				<div className="flex items-center gap-5">
-					<div className="aspect-square w-[120px] rounded-full bg-alt-orange-100"></div>
+					<div className="aspect-square w-[120px] rounded-full bg-alt-orange-100">
+						<Avatar
+							imageUrl={props.imageUrl}
+							name={`${props.firstName} ${props.lastName}`}
+							email={props.email}
+						/>
+					</div>
 					<div>
-						<p className="font-satoshi text-2xl font-bold">Pablo Clueless</p>
-						<p className="text-white-300">smsnmicheal@gamil.com</p>
+						<p className="font-satoshi text-2xl font-bold capitalize">
+							{props.firstName} {props.lastName}
+						</p>
+						<p className="text-white-300">{props.email}</p>
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-export type Profile = {
+export type UserProps = {
 	profileId: number
 	createdAt: string | null
 	updatedAt: string | null

@@ -26,7 +26,3 @@ dist-ssr
 # Environment variables
 .env
 .env.*
-
-# Vitepress
-docs/.vitepress/cache
-docs/.vitepress/dist

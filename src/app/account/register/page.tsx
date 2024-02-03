@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 
 import { Button, Dialog, Input, Spinner } from "@/components"
-
+import { PASSWORD_REGEX } from "@/config/constants"
 const Page = () => {
 	const [formFields, setFormFields] = useState({
 		email: "",
@@ -40,10 +40,7 @@ const Page = () => {
 		setFormFields({ ...formFields, [e.target.name]: e.target.value })
 
 	const formAction = async () => {
-		const isValid =
-			/^(?=.*[a-zA-Z0-9])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[a-z])(?=.*[0-9]).{8,20}$/.test(
-				formFields.password
-			)
+		const isValid = PASSWORD_REGEX.test(formFields.password)
 		if (!isValid) {
 			alert("Password is not strong enough!")
 			return
@@ -73,12 +70,16 @@ const Page = () => {
 				</Dialog>
 			)}
 			<div className="h-full w-full">
-				<p className="font-satoshi text-[28px] font-bold">Come On Board</p>
-				<p className="text-lg">
-					It&apos;s not your Bitcoin until you self-custody it. Start your journey to
-					becoming a Bitcoin owner today.
+				<p className="font-satoshi text-[28px] font-bold">
+					Come On Board
 				</p>
-				<form action={formAction} className="mt-10 flex h-full w-full flex-col">
+				<p className="text-lg">
+					It&apos;s not your Bitcoin until you self-custody it. Start
+					your journey to becoming a Bitcoin owner today.
+				</p>
+				<form
+					action={formAction}
+					className="mt-10 flex h-full w-full flex-col">
 					<div className="flex w-full flex-col gap-6">
 						<Input
 							typed="email"
@@ -97,16 +98,23 @@ const Page = () => {
 							name="confirm_password"
 							onChange={handleChange}
 							label="Confirm Password"
-							error={passwordsMatch ? "" : "Passwords do not match"}
+							error={
+								passwordsMatch ? "" : "Passwords do not match"
+							}
 						/>
 					</div>
 					<div className="mt-[270px] flex w-full flex-col gap-5">
-						<Button type="submit" width="w-full" disabled={isPending}>
+						<Button
+							type="submit"
+							width="w-full"
+							disabled={isPending}>
 							{isPending ? <Spinner /> : "Create Account"}
 						</Button>
 						<p className="flex items-center justify-center text-center">
 							Already have an account?
-							<Link href="/account/login" className="link ml-1 text-alt-orange-100">
+							<Link
+								href="/account/login"
+								className="link ml-1 text-alt-orange-100">
 								Log In
 							</Link>
 						</p>

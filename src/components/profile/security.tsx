@@ -8,7 +8,9 @@ const Security = () => {
 				<div className="flex items-center gap-5">
 					<div className="aspect-square w-[120px] rounded-full bg-alt-orange-100"></div>
 					<div>
-						<p className="font-satoshi text-2xl font-bold">Pablo Clueless</p>
+						<p className="font-satoshi text-2xl font-bold">
+							Pablo Clueless
+						</p>
 						<p className="text-white-300">smsnmicheal@gamil.com</p>
 					</div>
 				</div>
@@ -17,7 +19,9 @@ const Security = () => {
 			<div className="grid w-full grid-cols-3 gap-5">
 				<div className="w-full">
 					<p className="font-bold">Password</p>
-					<p className="text-sm text-white-300">Reset your password here</p>
+					<p className="text-sm text-white-300">
+						Reset your password here
+					</p>
 				</div>
 				<form className="col-span-2 flex w-2/3 flex-col gap-5">
 					<Input typed="password" label="Enter Old Password" />
