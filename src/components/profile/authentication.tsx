@@ -1,7 +1,7 @@
 import { UserProps } from "@/types/profile"
 import { Avatar } from ".."
 
-const Authentication = async (props: UserProps) => {
+const Authentication = (props: UserProps) => {
 	return (
 		<div className="h-[644px] w-full rounded-lg border border-black-500 bg-black-700 p-10">
 			<div className="flex w-full items-center justify-between">

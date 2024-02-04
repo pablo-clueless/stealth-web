@@ -2,9 +2,8 @@
 import { useEffect, useState } from "react"
 
 import { Authentication, Profile, Security } from "@/components/profile"
+import { Spinner, TabPanel } from "@/components"
 import { UserProps } from "@/types/profile"
-import { TabPanel } from "@/components"
-import Loading from "./loading"
 
 const TabList = ["Profile", "Security Settings", "2-FA"]
 
@@ -32,7 +31,7 @@ const Page = () => {
 		getUser()
 	}, [])
 
-	if (!user) return <Loading />
+	if (!user) return <Spinner />
 
 	return (
 		<div className="flex h-full w-full flex-col gap-6">
@@ -52,13 +51,13 @@ const Page = () => {
 						</button>
 					))}
 				</div>
-				<TabPanel tabIndex={1} index={tab}>
+				<TabPanel tabIndex={0} index={tab}>
 					<Profile {...user} />
 				</TabPanel>
-				<TabPanel tabIndex={2} index={tab}>
-					<Security />
+				<TabPanel tabIndex={1} index={tab}>
+					<Security {...user} />
 				</TabPanel>
-				<TabPanel tabIndex={3} index={tab}>
+				<TabPanel tabIndex={2} index={tab}>
 					<Authentication {...user} />
 				</TabPanel>
 			</div>
