@@ -11,10 +11,7 @@ const Profile = (props: UserProps) => {
 
 	return (
 		<>
-			<Dialog
-				isOpen={openModal}
-				onDismiss={() => setOpenModal(false)}
-				large>
+			<Dialog isOpen={openModal} onDismiss={() => setOpenModal(false)} large>
 				<div className="min-h-[50dvh] w-full bg-black-100">
 					<EditProfile onDismiss={() => setOpenModal(false)} />
 				</div>
@@ -36,10 +33,7 @@ const Profile = (props: UserProps) => {
 							<p className="text-white-300">{props.email}</p>
 						</div>
 					</div>
-					<Button
-						type="button"
-						width="w-[147px]"
-						onClick={() => setOpenModal(true)}>
+					<Button type="button" width="w-[147px]" onClick={() => setOpenModal(true)}>
 						<PencilSimpleLine size={20} /> Edit Profile
 					</Button>
 				</div>
@@ -53,22 +47,10 @@ const Profile = (props: UserProps) => {
 					</div>
 					<div className="col-span-2 flex w-2/3 flex-col gap-5">
 						<div className="grid w-full grid-cols-2 gap-5">
-							<Input
-								typed="text"
-								defaultValue={props.firstName}
-								label="First Name"
-							/>
-							<Input
-								typed="text"
-								defaultValue={props.lastName}
-								label="Last Name"
-							/>
+							<Input typed="text" defaultValue={props.firstName} label="First Name" />
+							<Input typed="text" defaultValue={props.lastName} label="Last Name" />
 						</div>
-						<Input
-							typed="email"
-							defaultValue={props.email}
-							label="Email Address"
-						/>
+						<Input typed="email" defaultValue={props.email} label="Email Address" />
 						<Input typed="text" label="Wallet Address" />
 						<Input typed="text" label="Nationality" />
 					</div>

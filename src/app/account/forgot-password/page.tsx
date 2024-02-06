@@ -59,16 +59,12 @@ const Page = () => {
 					description="Instructions to reset your password has been sent to your mail."></Dialog>
 			)}
 			<div className="h-full w-full">
-				<p className="font-satoshi text-[28px] font-bold">
-					Forgot your Password?
-				</p>
+				<p className="font-satoshi text-[28px] font-bold">Forgot your Password?</p>
 				<p className="font-satoshi text-lg">
-					If you forgot your password, please enter the email address
-					associated with your account to reset your password.
+					If you forgot your password, please enter the email address associated with
+					your account to reset your password.
 				</p>
-				<form
-					onSubmit={handleSubmit}
-					className="mt-10 flex w-full flex-col">
+				<form onSubmit={handleSubmit} className="mt-10 flex w-full flex-col">
 					<div className="flex w-full flex-col gap-6">
 						<Input
 							typed="email"
@@ -85,18 +81,13 @@ const Page = () => {
 								width="w-full bg-black-600">
 								Back to Log In
 							</Button>
-							<Button
-								type="submit"
-								width="w-full"
-								disabled={loading}>
+							<Button type="submit" width="w-full" disabled={loading}>
 								{loading ? <Spinner /> : "Send Reset Email"}
 							</Button>
 						</div>
 						<p className="flex items-center justify-center text-center">
 							Don&apos;t have an account yet?
-							<Link
-								href="/account/register"
-								className="link ml-1 text-alt-orange-100">
+							<Link href="/account/register" className="link ml-1 text-alt-orange-100">
 								Create account
 							</Link>
 						</p>

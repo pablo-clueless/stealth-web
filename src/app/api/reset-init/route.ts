@@ -20,8 +20,7 @@ export async function POST(request: Request, response: NextResponse) {
 			return NextResponse.json(
 				{
 					success: true,
-					message:
-						"A reset mail has been sent to your email address!",
+					message: "A reset mail has been sent to your email address!",
 				},
 				{ status: 201 }
 			)

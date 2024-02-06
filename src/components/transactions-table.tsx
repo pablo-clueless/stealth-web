@@ -70,21 +70,11 @@ const TransactionsTable = () => {
 				<tbody>
 					{transactions.map((transaction) => (
 						<tr key={transaction.id} className="h-[75px]">
-							<td className="max-w-min text-center">
-								{transaction.id}
-							</td>
-							<td className="max-w-min text-center">
-								{transaction.date}
-							</td>
-							<td className="max-w-min text-center">
-								{transaction.amount}
-							</td>
-							<td className="max-w-min text-center">
-								{transaction.value}
-							</td>
-							<td className="max-w-min text-center">
-								{transaction.wallet}
-							</td>
+							<td className="max-w-min text-center">{transaction.id}</td>
+							<td className="max-w-min text-center">{transaction.date}</td>
+							<td className="max-w-min text-center">{transaction.amount}</td>
+							<td className="max-w-min text-center">{transaction.value}</td>
+							<td className="max-w-min text-center">{transaction.wallet}</td>
 							<td
 								className={`w-[20px] rounded-[4px] px-3 py-2 text-left text-[10px] font-medium`}>
 								<span

@@ -14,8 +14,7 @@ export default function AuthLayout({
 					<Image src={logo} alt="stealth money logo" />
 				</div>
 				<p className="my-11 w-[390px] font-satoshi text-[32px] font-bold">
-					Fully control and build your Bitcoin wealth with Stealth
-					Money
+					Fully control and build your Bitcoin wealth with Stealth Money
 				</p>
 				<Image
 					src={wallet}

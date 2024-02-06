@@ -31,13 +31,8 @@ const Input = (props: Props) => {
 
 	if (props.as === "textarea") {
 		return (
-			<div
-				className={`flex flex-col ${
-					props.width ? props.width : "w-full"
-				}`}>
-				<label
-					htmlFor={props.name}
-					className="mb-1 font-satoshi text-sm">
+			<div className={`flex flex-col ${props.width ? props.width : "w-full"}`}>
+				<label htmlFor={props.name} className="mb-1 font-satoshi text-sm">
 					{props.label}
 				</label>
 				<textarea className="min-h-[150px] w-full resize-none rounded border bg-transparent transition-all duration-300 focus:bg-alt-orange-100"></textarea>
@@ -50,13 +45,8 @@ const Input = (props: Props) => {
 
 	if (props.as === "select") {
 		return (
-			<div
-				className={`flex flex-col ${
-					props.width ? props.width : "w-full"
-				}`}>
-				<label
-					htmlFor={props.name}
-					className="mb-1 font-satoshi text-sm">
+			<div className={`flex flex-col ${props.width ? props.width : "w-full"}`}>
+				<label htmlFor={props.name} className="mb-1 font-satoshi text-sm">
 					{props.label}
 				</label>
 				<select className="h-12 w-full rounded border bg-transparent p-2 transition-all duration-300 focus:bg-alt-orange-100">
@@ -70,8 +60,7 @@ const Input = (props: Props) => {
 	}
 
 	return (
-		<div
-			className={`flex flex-col ${props.width ? props.width : "w-full"}`}>
+		<div className={`flex flex-col ${props.width ? props.width : "w-full"}`}>
 			<label htmlFor={props.name} className="mb-1 font-satoshi text-sm">
 				{props.label}
 			</label>
@@ -82,9 +71,7 @@ const Input = (props: Props) => {
 					{...props}
 				/>
 				{props.typed === "password" && (
-					<button
-						type="button"
-						onClick={() => setshowPassword(!showPassword)}>
+					<button type="button" onClick={() => setshowPassword(!showPassword)}>
 						{showPassword ? <EyeSlash /> : <Eye />}
 					</button>
 				)}

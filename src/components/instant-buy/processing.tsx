@@ -40,8 +40,7 @@ const Processing = (props: Props) => {
 				</p>
 			</div>
 			<p className="text-center text-xl font-medium">
-				We are waiting to confirm your transfer. This can take a few
-				minutes.
+				We are waiting to confirm your transfer. This can take a few minutes.
 			</p>
 			<div className="my-24 flex w-full items-center justify-between gap-4">
 				<div className="flex w-10 flex-col items-center gap-1">
@@ -66,9 +65,7 @@ const Processing = (props: Props) => {
 						</div>
 					)}
 					<p
-						className={`text-xs ${
-							timer > 0 ? "text-black-300" : "text-green-100"
-						}`}>
+						className={`text-xs ${timer > 0 ? "text-black-300" : "text-green-100"}`}>
 						Received
 					</p>
 				</div>

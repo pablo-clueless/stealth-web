@@ -59,15 +59,9 @@ const Page = () => {
 				</Dialog>
 			)}
 			<div className="h-full w-full">
-				<p className="font-satoshi text-[28px] font-bold">
-					Reset your Password?
-				</p>
-				<p className="font-satoshi text-lg">
-					Please enter your new password.
-				</p>
-				<form
-					onSubmit={handleSubmit}
-					className="mt-10 flex w-full flex-col">
+				<p className="font-satoshi text-[28px] font-bold">Reset your Password?</p>
+				<p className="font-satoshi text-lg">Please enter your new password.</p>
+				<form onSubmit={handleSubmit} className="mt-10 flex w-full flex-col">
 					<div className="flex w-full flex-col gap-6">
 						<Input
 							typed="password"
@@ -80,9 +74,7 @@ const Page = () => {
 							name="confirm_password"
 							onChange={handleChange}
 							label="Confirm Password"
-							error={
-								passwordsMatch ? "" : "Passwords do not match"
-							}
+							error={passwordsMatch ? "" : "Passwords do not match"}
 						/>
 					</div>
 					<div className="mt-[400px] flex w-full flex-col gap-5">
@@ -93,18 +85,13 @@ const Page = () => {
 								width="w-full bg-black-600">
 								Back to Log In
 							</Button>
-							<Button
-								type="submit"
-								width="w-full"
-								disabled={loading}>
+							<Button type="submit" width="w-full" disabled={loading}>
 								{loading ? <Spinner /> : "Reset Password"}
 							</Button>
 						</div>
 						<p className="flex items-center justify-center text-center">
 							Don&apos;t have an account yet?
-							<Link
-								href="/account/register"
-								className="link ml-1 text-alt-orange-100">
+							<Link href="/account/register" className="link ml-1 text-alt-orange-100">
 								Create account
 							</Link>
 						</p>

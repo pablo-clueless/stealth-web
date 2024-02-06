@@ -57,15 +57,11 @@ const Page = () => {
 				</Dialog>
 			)}
 			<div className="h-full w-full">
-				<p className="font-satoshi text-[28px] font-bold">
-					Welcome Back!
-				</p>
+				<p className="font-satoshi text-[28px] font-bold">Welcome Back!</p>
 				<p className="text-lg">
 					Please enter your login credentials to access your account
 				</p>
-				<form
-					action={formAction}
-					className="mt-10 flex w-full flex-col">
+				<form action={formAction} className="mt-10 flex w-full flex-col">
 					<div className="flex w-full flex-col gap-6">
 						<Input
 							typed="email"
@@ -95,9 +91,7 @@ const Page = () => {
 						</Button>
 						<p className="flex items-center justify-center text-center">
 							Don&apos;t have an account yet?
-							<Link
-								href="/account/register"
-								className="link ml-1 text-alt-orange-100">
+							<Link href="/account/register" className="link ml-1 text-alt-orange-100">
 								Create account
 							</Link>
 						</p>

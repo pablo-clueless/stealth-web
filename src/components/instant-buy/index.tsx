@@ -34,9 +34,7 @@ const InstantBuy = (props: Props) => {
 	const handleConfirmPayment = async () => {
 		try {
 			console.log("transaction confirmed!")
-			setTxnHash(
-				"tb1pjw92ak78d62tc453uuqg69f2wqyszzg0nglxku7j5dcmy4s257asdcsxnu"
-			)
+			setTxnHash("tb1pjw92ak78d62tc453uuqg69f2wqyszzg0nglxku7j5dcmy4s257asdcsxnu")
 			setIsPaymentConfirmed(true)
 		} catch (error) {
 			setIsPaymentConfirmed(false)

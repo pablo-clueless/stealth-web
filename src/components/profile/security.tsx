@@ -26,9 +26,7 @@ const Security = (props: UserProps) => {
 			<div className="grid w-full grid-cols-3 gap-5">
 				<div className="w-full">
 					<p className="font-bold">Password</p>
-					<p className="text-sm text-white-300">
-						Reset your password here
-					</p>
+					<p className="text-sm text-white-300">Reset your password here</p>
 				</div>
 				<form className="col-span-2 flex w-2/3 flex-col gap-5">
 					<Input typed="password" label="Enter Old Password" />

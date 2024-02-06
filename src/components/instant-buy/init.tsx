@@ -74,9 +74,7 @@ const Init = (props: Props) => {
 			</p>
 			<div className="my-8 flex w-full flex-col">
 				<div
-					className={`flex w-full ${
-						reversed ? "flex-col-reverse" : "flex-col"
-					}`}>
+					className={`flex w-full ${reversed ? "flex-col-reverse" : "flex-col"}`}>
 					<CurrencyInput
 						amount={fields.amount}
 						currency={fields.currency}
@@ -125,9 +123,7 @@ const Init = (props: Props) => {
 					onChange={handleChange}
 					label="Wallet Address"
 				/>
-				<p className="text-xs">
-					Please paste in your hardware wallet address here
-				</p>
+				<p className="text-xs">Please paste in your hardware wallet address here</p>
 			</div>
 			<div className="mb-28 mt-6">
 				<Input

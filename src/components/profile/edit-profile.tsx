@@ -63,10 +63,7 @@ const EditProfile = (props: Props) => {
 				/>
 			</div>
 			<div className="mt-36 grid w-full grid-cols-2 gap-6">
-				<Button
-					type="button"
-					onClick={props.onDismiss}
-					width="w-full bg-black-600">
+				<Button type="button" onClick={props.onDismiss} width="w-full bg-black-600">
 					Discard
 				</Button>
 				<Button type="submit" width="w-full">

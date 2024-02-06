@@ -40,12 +40,9 @@ export default function Activate({
 	if (!code) {
 		return (
 			<div className="flex flex-col items-center rounded-lg bg-slate-50 p-7">
-				<p className="pt-3 text-center text-lg font-semibold">
-					We sent you a mail
-				</p>
+				<p className="pt-3 text-center text-lg font-semibold">We sent you a mail</p>
 				<p className="pt-3 text-center text-lg">
-					Activate your account by clicking the link sent to your
-					email.
+					Activate your account by clicking the link sent to your email.
 				</p>
 			</div>
 		)
@@ -66,8 +63,7 @@ export default function Activate({
 					Account Activation Error!
 				</h1>
 				<p className="pt-3 text-center text-lg">
-					Sorry we could not activate your account. Please try again
-					later
+					Sorry we could not activate your account. Please try again later
 				</p>
 			</div>
 		)
@@ -76,15 +72,12 @@ export default function Activate({
 	if (activated) {
 		return (
 			<div className="flex flex-col items-center rounded-lg bg-green-50 p-7">
-				<h1 className="text-xl font-semibold text-green-500">
-					Account Activated!
-				</h1>
+				<h1 className="text-xl font-semibold text-green-500">Account Activated!</h1>
 				<p className="pt-3 text-center text-lg">
 					Your account has been activated. You can now login
 				</p>
 				<p className="pt-3 text-center text-lg">
-					Click this button to login if you are not automatically
-					redirected.
+					Click this button to login if you are not automatically redirected.
 				</p>
 				<button className="text-white mt-5 rounded-lg bg-green-500 px-5 py-2">
 					<Link href="/account/login">Login</Link>

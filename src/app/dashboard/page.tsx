@@ -78,13 +78,10 @@ const Page = () => {
 				<div className="grid h-[350px] w-full grid-cols-5 gap-6">
 					<div className="col-span-2 flex h-full flex-col justify-between rounded-lg border border-black-500 bg-black-700 p-6">
 						<div>
-							<p className="font-satoshi text-xl font-medium">
-								Instant Buy
-							</p>
+							<p className="font-satoshi text-xl font-medium">Instant Buy</p>
 							<p className="mb-4 text-xs text-black-400">
-								Instantly buy Bitcoin into your self custody
-								hardware wallet. Remember it&apos;s not your
-								Bitcoin until you self-custody it.
+								Instantly buy Bitcoin into your self custody hardware wallet. Remember
+								it&apos;s not your Bitcoin until you self-custody it.
 							</p>
 							<CurrencyInput
 								amount={fields.amount}
@@ -109,25 +106,18 @@ const Page = () => {
 							<Button type="button" width="w-full bg-black-600">
 								Generate Payment Link
 							</Button>
-							<Button
-								type="button"
-								onClick={handleSubmit}
-								width="w-full">
+							<Button type="button" onClick={handleSubmit} width="w-full">
 								Buy Now
 							</Button>
 						</div>
 					</div>
 					<div className="col-span-3 h-full rounded-lg border border-black-500 bg-black-700 p-6">
-						<p className="font-satoshi text-xl font-medium">
-							Market Summary
-						</p>
+						<p className="font-satoshi text-xl font-medium">Market Summary</p>
 					</div>
 				</div>
 				<div className="flex h-[372px] w-full flex-col rounded-lg border border-black-500 bg-black-700 p-6">
 					<div className="flex items-center">
-						<p className="font-satoshi text-xl font-medium">
-							Recent Transactions
-						</p>
+						<p className="font-satoshi text-xl font-medium">Recent Transactions</p>
 					</div>
 					<hr className="my-4 w-full" />
 					{loading && <Spinner />}

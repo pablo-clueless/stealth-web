@@ -24,11 +24,7 @@ const Avatar = (props: Props) => {
 				/>
 			) : (
 				<div className="grid h-full w-full place-items-center rounded-full">
-					<p>
-						{props.name
-							? getChars(props.name)
-							: props.email.substring(0, 1)}
-					</p>
+					<p>{props.name ? getChars(props.name) : props.email.substring(0, 1)}</p>
 				</div>
 			)}
 		</div>
