@@ -1,3 +1,5 @@
+"use server"
+
 import { auth } from "@/auth"
 import endpoints from "@/config/endpoints"
 
