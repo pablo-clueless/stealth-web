@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Authentication, Profile, Security } from "@/components/profile"
 import { Spinner, TabPanel } from "@/components"
 import { UserProps } from "@/types/profile"
+import { getProfile } from "@/app/helpers/get-profile"
 
 const TabList = ["Profile", "Security Settings", "2-FA"]
 
@@ -13,20 +14,11 @@ const Page = () => {
 
 	useEffect(() => {
 		const getUser = async () => {
-			try {
-				const res = await fetch("/api/profile", {
-					method: "GET",
-					headers: { "Content-Type": "application/json" },
-				})
-				if (!res.ok) {
-					console.log(res)
-				}
-				const data = await res.json()
-				setUser(data)
-				console.log(data)
-			} catch (error) {
-				console.log(error)
+			const data = await getProfile()
+			if (data instanceof Error) {
+				return console.error(data)
 			}
+			setUser(data)
 		}
 		getUser()
 	}, [])
