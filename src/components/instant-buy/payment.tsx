@@ -1,4 +1,5 @@
 "use client"
+import { Copy } from "@phosphor-icons/react"
 import { useEffect, useState } from "react"
 
 import { formatCurrency } from "@/app/helpers/amount"
@@ -27,6 +28,14 @@ const Payment = (props: Props) => {
 	const [timer, setTimer] = useState(1800)
 	const { amount, depositInfo } = props
 
+	const copyPaymentDetails = () => {
+		navigator.clipboard.writeText(`
+		${depositInfo.bankName} \n
+		${depositInfo.accountName} \n
+		${depositInfo.accountNumber}
+		`)
+	}
+
 	const handleSubmit = async () => {
 		props.next()
 	}
@@ -46,9 +55,16 @@ const Payment = (props: Props) => {
 			</p>
 			<div className="mb-16 mt-8 w-full">
 				<p className="text-white-300">You are to pay</p>
-				<p className="font-satoshi text-[28px] font-medium">
-					{formatCurrency(+amount + CHARGES)}
-				</p>
+				<div className="flex w-full items-center justify-between">
+					<p className="font-satoshi text-[28px] font-medium">
+						{formatCurrency(+amount + CHARGES)}
+					</p>
+					<button
+						onClick={copyPaymentDetails}
+						className="flex items-center gap-1 text-xl">
+						Copy <Copy size={24} />
+					</button>
+				</div>
 			</div>
 			<div className="w-full">
 				<div className="flex w-full items-center justify-between text-sm text-white-300">
