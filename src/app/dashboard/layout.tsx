@@ -5,8 +5,8 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
+import { Button, Dialog } from "@/components"
 import { logo } from "@/assets/images"
-import { Dialog } from "@/components"
 import { NavList } from "./nav-list"
 
 export default function DashboardLayout({
@@ -24,7 +24,20 @@ export default function DashboardLayout({
 				onDismiss={() => setIsOpen(false)}
 				title="Log Out"
 				description="Do you really want to sign out?"
-				type="error"></Dialog>
+				type="error"
+				large>
+				<div className="mt-10 flex w-2/3 items-center justify-between">
+					<Button
+						type="button"
+						onClick={() => setIsOpen(false)}
+						width="bg-black-600 w-[110px]">
+						Cancel
+					</Button>
+					<Button type="button" width="w-[110px]">
+						Log Out
+					</Button>
+				</div>
+			</Dialog>
 			<main className="flex h-screen w-screen items-start overflow-hidden bg-black-100 text-white-100">
 				<div className="flex h-full w-1/5 flex-col justify-between border-r border-black-500 p-6">
 					<div className="flex w-full flex-col gap-12">
