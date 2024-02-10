@@ -17,7 +17,7 @@ const Form = () => {
 		if (!query) {
 			return setError("Please enter a query!")
 		}
-    setError("")
+		setError("")
 		console.log(query)
 	}
 

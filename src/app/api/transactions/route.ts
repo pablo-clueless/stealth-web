@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-export async function GET(request: NextRequest, response: NextResponse) {	
+export async function GET(request: NextRequest, response: NextResponse) {
 	try {
 		const res = await fetch("http://localhost:8080/api/transactions", {
 			method: "GET",

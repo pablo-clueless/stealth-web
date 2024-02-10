@@ -103,7 +103,9 @@ type CurrencyInputProps = {
 export const CurrencyInput = (props: CurrencyInputProps) => {
 	return (
 		<div className="my-1 w-full">
-			<label htmlFor="" className="mb-1 font-satoshi text-sm">{props.label}</label>
+			<label htmlFor="" className="mb-1 font-satoshi text-sm">
+				{props.label}
+			</label>
 			<div className="flex h-[60px] w-full items-center rounded border transition-all duration-300 focus-within:border-alt-orange-100">
 				<input
 					type="number"

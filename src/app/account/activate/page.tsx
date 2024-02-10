@@ -49,7 +49,9 @@ const Page = () => {
 				large
 				description="Your account has been activated!">
 				<div>
-					<Link href="/account/login" className="text-white flex h-12 items-center justify-center gap-1 rounded bg-alt-orange-500 px-4 font-satoshi text-sm font-medium transition-all duration-200 active:scale-[0.98] w-fit">
+					<Link
+						href="/account/login"
+						className="text-white flex h-12 w-fit items-center justify-center gap-1 rounded bg-alt-orange-500 px-4 font-satoshi text-sm font-medium transition-all duration-200 active:scale-[0.98]">
 						Continue to login
 					</Link>
 				</div>
