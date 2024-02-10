@@ -19,7 +19,7 @@ interface Props {
 
 /** ? Isn't thissupposed to come from the backend?
  * Like I should get something like `amountPayable` from the backend
- * subract the original amount and then pass that to the component
+ * subtract the original amount and then pass that to the component
  */
 const CHARGES = 230
 
