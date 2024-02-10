@@ -113,6 +113,10 @@ svg rect {
 	-webkit-transition: width 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+.link.white::before {
+	background: #fff;
+}
+
 @media (hover: hover) and (pointer: fine) {
 	.link:hover::before {
 		left: 0;

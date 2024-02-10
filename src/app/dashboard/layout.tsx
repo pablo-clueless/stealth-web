@@ -1,6 +1,7 @@
 "use client"
 import { Bell, SignOut } from "@phosphor-icons/react"
 import { usePathname } from "next/navigation"
+import { signOut } from "next-auth/react"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -16,6 +17,8 @@ export default function DashboardLayout({
 }) {
 	const [isOpen, setIsOpen] = useState(false)
 	const pathname = usePathname()
+
+	const signOutFn = async () => {}
 
 	return (
 		<>
@@ -33,7 +36,7 @@ export default function DashboardLayout({
 						width="bg-black-600 w-[110px]">
 						Cancel
 					</Button>
-					<Button type="button" width="w-[110px]">
+					<Button type="button" onClick={signOutFn} width="w-[110px]">
 						Log Out
 					</Button>
 				</div>

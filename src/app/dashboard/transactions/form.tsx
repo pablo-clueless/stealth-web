@@ -1,23 +1,17 @@
 "use client"
-import { Funnel } from "@phosphor-icons/react"
+import { Funnel, MagnifyingGlass } from "@phosphor-icons/react"
 import React, { useState } from "react"
 
 import { Button, Input } from "@/components"
 
-interface Props {
-	handleQuery: (query: string) => void
-}
-
 const Form = () => {
 	const [query, setQuery] = useState("")
-	const [error, setError] = useState("")
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 		if (!query) {
-			return setError("Please enter a query!")
+			return alert("Please enter a valid search term!")
 		}
-		setError("")
 		console.log(query)
 	}
 
@@ -28,8 +22,8 @@ const Form = () => {
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				placeholder="Search"
-				error={error}
 				width="w-[300px]"
+				icon={<MagnifyingGlass size={22} />}
 			/>
 			<Button type="submit" width="w-[110px]">
 				<Funnel /> Filter

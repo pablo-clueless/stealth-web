@@ -3,6 +3,10 @@ import { UserProps } from "@/types/profile"
 import { Avatar, Button, Input } from ".."
 
 const Security = (props: UserProps) => {
+	const displayName = props.firstName
+		? `${props.firstName} ${props.lastName}`
+		: props.email.split("@")[0]
+
 	return (
 		<div className="h-[644px] w-full rounded-lg border border-black-500 bg-black-700 p-10">
 			<div className="flex w-full items-center justify-between">
@@ -10,13 +14,13 @@ const Security = (props: UserProps) => {
 					<div className="aspect-square w-[120px] rounded-full bg-alt-orange-100">
 						<Avatar
 							imageUrl={props.imageUrl}
-							name={`${props.firstName} ${props.lastName}`}
+							name={displayName}
 							email={props.email}
 						/>
 					</div>
 					<div>
 						<p className="font-satoshi text-2xl font-bold capitalize">
-							{props.firstName} {props.lastName}
+							{displayName}
 						</p>
 						<p className="text-white-300">{props.email}</p>
 					</div>

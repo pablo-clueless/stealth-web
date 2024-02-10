@@ -9,6 +9,10 @@ import EditProfile from "./edit-profile"
 const Profile = (props: UserProps) => {
 	const [openModal, setOpenModal] = useState(false)
 
+	const displayName = props.firstName
+		? `${props.firstName} ${props.lastName}`
+		: props.email.split("@")[0]
+
 	return (
 		<>
 			<Dialog isOpen={openModal} onDismiss={() => setOpenModal(false)} large>
@@ -22,13 +26,13 @@ const Profile = (props: UserProps) => {
 						<div className="aspect-square w-[120px] rounded-full bg-alt-orange-100">
 							<Avatar
 								imageUrl={props.imageUrl}
-								name={`${props.firstName} ${props.lastName}`}
+								name={displayName}
 								email={props.email}
 							/>
 						</div>
 						<div>
 							<p className="font-satoshi text-2xl font-bold capitalize">
-								{props.firstName} {props.lastName}
+								{displayName}
 							</p>
 							<p className="text-white-300">{props.email}</p>
 						</div>

@@ -9,6 +9,8 @@ type Props =
 			error?: string
 			note?: string
 			width?: string
+			icon?: React.ReactNode
+			pasteBtn?: React.ReactNode
 			typed: React.InputHTMLAttributes<HTMLInputElement>["type"]
 	  })
 	| (Omit<ComponentProps<"textarea">, "className"> & {
@@ -17,6 +19,8 @@ type Props =
 			error?: string
 			note?: string
 			width?: string
+			icon?: React.ReactNode
+			pasteBtn?: React.ReactNode
 	  })
 	| (Omit<ComponentProps<"select">, "className"> & {
 			as: "select"
@@ -24,6 +28,8 @@ type Props =
 			error?: string
 			note?: string
 			width?: string
+			icon?: React.ReactNode
+			pasteBtn?: React.ReactNode
 	  })
 
 const Input = (props: Props) => {
@@ -49,9 +55,12 @@ const Input = (props: Props) => {
 				<label htmlFor={props.name} className="mb-1 font-satoshi text-sm">
 					{props.label}
 				</label>
-				<select className="h-[60px] w-full rounded border bg-transparent p-2 transition-all duration-300 focus:bg-alt-orange-100">
-					{props.children}
-				</select>
+				<div className="h-[60px] w-full rounded border bg-transparent p-2 transition-all duration-300 focus-within:bg-alt-orange-100">
+					{props.icon}
+					<select className="h-full w-full rounded bg-transparent">
+						{props.children}
+					</select>
+				</div>
 				<p className="text-xs text-red-600">
 					{props.error ? props.error : props.note}
 				</p>
@@ -65,11 +74,13 @@ const Input = (props: Props) => {
 				{props.label}
 			</label>
 			<div className="flex h-[60px] w-full items-center gap-1 rounded border p-2 transition-all duration-300 focus-within:border-alt-orange-100">
+				{props.icon}
 				<input
 					type={showPassword ? "text" : props.typed}
 					className="h-full w-full rounded bg-transparent"
 					{...props}
 				/>
+				<div className="w-fit">{props.pasteBtn}</div>
 				{props.typed === "password" && (
 					<button type="button" onClick={() => setshowPassword(!showPassword)}>
 						{showPassword ? <EyeSlash /> : <Eye />}

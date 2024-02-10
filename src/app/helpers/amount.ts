@@ -17,7 +17,7 @@ export const getCurrencyValue = ({
 	pricePerSat: number
 	pricePerUsd: number
 }) => {
-	const amountInSats = Number(amount) / pricePerSat
+	const amountInSats = Math.round(Number(amount) / pricePerSat)
 	const amountInNaira = Number(amount) / pricePerUsd
 	return {
 		amount: amountInNaira,

@@ -1,6 +1,6 @@
 "use client"
+import { ArrowsDownUp, Copy, WarningCircle } from "@phosphor-icons/react"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { ArrowsDownUp, WarningCircle } from "@phosphor-icons/react"
 
 import { formatCurrency, getCurrencyValue } from "@/app/helpers/amount"
 import { getPaymentDetails } from "@/app/helpers/get-price"
@@ -20,6 +20,7 @@ interface Props {
 	handleChange: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void
+	pasteWalletAddress: () => void
 	setAmountInSats: (value: string) => void
 	setDepositInfo: Dispatch<
 		SetStateAction<{
@@ -137,6 +138,14 @@ const Init = (props: Props) => {
 					value={fields.walletAddress}
 					onChange={handleChange}
 					label="Wallet Address"
+					pasteBtn={
+						<button
+							type="button"
+							onClick={props.pasteWalletAddress}
+							className="flex items-center gap-1 px-2 text-xs uppercase text-green-100">
+							paste <Copy size={14} />
+						</button>
+					}
 				/>
 				<p className="text-xs">Please paste in your hardware wallet address here</p>
 			</div>

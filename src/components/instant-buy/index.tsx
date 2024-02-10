@@ -32,6 +32,14 @@ const InstantBuy = (props: Props) => {
 		walletAddress: "",
 	})
 
+	const pasteWalletAddress = async () => {
+		navigator.clipboard.readText().then((text) => {
+			if (text) {
+				setFields({ ...fields, walletAddress: text })
+			}
+		})
+	}
+
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => setFields({ ...fields, [e.target.name]: e.target.value })
@@ -43,6 +51,7 @@ const InstantBuy = (props: Props) => {
 					fields={fields}
 					handleChange={handleChange}
 					exchangeRate={props.exchangeRate}
+					pasteWalletAddress={pasteWalletAddress}
 					setDepositInfo={setDepositInfo}
 					setAmountInSats={(value: string) =>
 						setFields({ ...fields, amountInSats: value })
