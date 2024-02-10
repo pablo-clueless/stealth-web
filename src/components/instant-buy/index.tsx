@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+import { ExchangeRateProps } from "@/types/price"
 import Processing from "./processing"
 import Success from "./success"
 import Payment from "./payment"
@@ -10,18 +11,18 @@ type BuyState = "init" | "payment" | "processing" | "success"
 interface Props {
 	amount: string
 	currency: string
+	exchangeRate: ExchangeRateProps["data"]
 }
 
 const InstantBuy = (props: Props) => {
-	const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false)
 	const [screen, setScreen] = useState<BuyState>("init")
 	const [txnHash, setTxnHash] = useState("")
 
 	const [depositInfo, setDepositInfo] = useState({
-		bankName: "",
 		accountNumber: "",
-		amountPayable: "",
-		charges: "",
+		accountName: "",
+		bankName: "",
+		paymentReference: "",
 	})
 	const [fields, setFields] = useState({
 		amount: props.amount,
@@ -30,16 +31,6 @@ const InstantBuy = (props: Props) => {
 		narration: "",
 		walletAddress: "",
 	})
-
-	const handleConfirmPayment = async () => {
-		try {
-			console.log("transaction confirmed!")
-			setTxnHash("tb1pjw92ak78d62tc453uuqg69f2wqyszzg0nglxku7j5dcmy4s257asdcsxnu")
-			setIsPaymentConfirmed(true)
-		} catch (error) {
-			setIsPaymentConfirmed(false)
-		}
-	}
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -51,6 +42,7 @@ const InstantBuy = (props: Props) => {
 				<Init
 					fields={fields}
 					handleChange={handleChange}
+					exchangeRate={props.exchangeRate}
 					setDepositInfo={setDepositInfo}
 					setAmountInSats={(value: string) =>
 						setFields({ ...fields, amountInSats: value })
@@ -62,15 +54,15 @@ const InstantBuy = (props: Props) => {
 				<Payment
 					amount={fields.amount}
 					depositInfo={depositInfo}
-					handleConfirmPayment={handleConfirmPayment}
 					next={() => setScreen("processing")}
 					previous={() => setScreen("init")}
 				/>
 			)}
 			{screen === "processing" && (
 				<Processing
-					amountPayable={depositInfo.amountPayable}
-					isPaymentConfirmed={isPaymentConfirmed}
+					amountPayable={fields.amount}
+					paymentReference={depositInfo.paymentReference}
+					setTxnHash={(value) => setTxnHash(value)}
 					next={() => setScreen("success")}
 				/>
 			)}

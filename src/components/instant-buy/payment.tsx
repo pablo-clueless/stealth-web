@@ -8,23 +8,26 @@ import { Button } from ".."
 interface Props {
 	amount: string
 	depositInfo: {
-		bankName: string
 		accountNumber: string
-		amountPayable: string
-		charges: string
+		accountName: string
+		bankName: string
+		paymentReference: string
 	}
-	handleConfirmPayment: () => void
 	next: () => void
 	previous: () => void
 }
 
+/** ? Isn't thissupposed to come from the backend?
+ * Like I should get something like `amountPayable` from the backend
+ * subract the original amount and then pass that to the component
+ */
+const CHARGES = 230
+
 const Payment = (props: Props) => {
+	const [timer, setTimer] = useState(1800)
 	const { amount, depositInfo } = props
 
-	const [timer, setTimer] = useState(1800)
-
 	const handleSubmit = async () => {
-		await props.handleConfirmPayment()
 		props.next()
 	}
 
@@ -44,7 +47,7 @@ const Payment = (props: Props) => {
 			<div className="mb-16 mt-8 w-full">
 				<p className="text-white-300">You are to pay</p>
 				<p className="font-satoshi text-[28px] font-medium">
-					{formatCurrency(depositInfo.amountPayable)}
+					{formatCurrency(+amount + CHARGES)}
 				</p>
 			</div>
 			<div className="w-full">
@@ -63,8 +66,8 @@ const Payment = (props: Props) => {
 					<p>Charges</p>
 				</div>
 				<div className="flex w-full items-center justify-between text-xl font-medium">
-					<p>{formatCurrency(amount)}</p>
-					<p>{formatCurrency(depositInfo.charges)}</p>
+					<p>{formatCurrency(+amount)}</p>
+					<p>{formatCurrency(CHARGES)}</p>
 				</div>
 			</div>
 			<hr className="w-full" />
@@ -74,7 +77,7 @@ const Payment = (props: Props) => {
 					<p>Expires In</p>
 				</div>
 				<div className="flex w-full items-center justify-between text-xl font-medium">
-					<p>{formatCurrency(depositInfo.amountPayable)}</p>
+					<p>{formatCurrency(+amount + CHARGES)}</p>
 					<p className={`${timer > 0 ? "text-green-500" : "text-red-500"}`}>
 						{formatTime(timer)}
 					</p>

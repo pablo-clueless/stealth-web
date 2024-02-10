@@ -22,7 +22,7 @@ const Button = (props: Props) => {
 	if (props.as === "link") {
 		return (
 			<Link
-				className={`text-white flex h-12 items-center justify-center gap-1 rounded bg-alt-orange-500 px-4 font-satoshi text-sm font-medium transition-all duration-200 active:scale-[0.98] ${
+				className={`text-white flex h-[60px] items-center justify-center gap-1 rounded bg-alt-orange-100 px-4 font-satoshi text-sm font-medium transition-all duration-200 active:scale-[0.98] ${
 					props.width ? props.width : "w-fit"
 				}`}
 				{...props}>
@@ -34,7 +34,7 @@ const Button = (props: Props) => {
 	if (props.as === "a") {
 		return (
 			<a
-				className={`text-white flex h-12 items-center justify-center gap-1 rounded bg-alt-orange-500 px-4 font-satoshi text-sm font-medium transition-all duration-200 active:scale-[0.98] ${
+				className={`text-white flex h-[60px] items-center justify-center gap-1 rounded bg-alt-orange-100 px-4 font-satoshi text-sm font-medium transition-all duration-200 active:scale-[0.98] ${
 					props.width ? props.width : "w-fit"
 				}`}
 				{...props}>
@@ -45,7 +45,7 @@ const Button = (props: Props) => {
 
 	return (
 		<button
-			className={`text-white flex h-12 items-center justify-center gap-1 rounded bg-alt-orange-500 px-4 font-satoshi text-sm font-medium transition-all duration-200 active:scale-[0.98] ${
+			className={`text-white flex h-[60px] items-center justify-center gap-1 rounded bg-alt-orange-100 px-4 font-satoshi text-sm font-medium transition-all duration-200 active:scale-[0.98] ${
 				props.width ? props.width : "w-fit"
 			}`}
 			{...props}>

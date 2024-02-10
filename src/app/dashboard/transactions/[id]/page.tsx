@@ -1,6 +1,10 @@
-import React from "react"
+interface Props {
+	params: {
+		id: string
+	}
+}
 
-const Page = () => {
+const Page = ({ params: { id } }: Props) => {
 	return <div>Page</div>
 }
 

@@ -1,11 +1,11 @@
 import { SATS_PER_BTC } from "@/config/constants"
 
-export const formatCurrency = (amount: string) => {
+export const formatCurrency = (amount: number) => {
 	const intl = new Intl.NumberFormat("en-NG", {
 		style: "currency",
 		currency: "NGN",
 	})
-	return intl.format(Number(amount))
+	return intl.format(amount)
 }
 
 export const getCurrencyValue = ({

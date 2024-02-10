@@ -1,13 +1,15 @@
 "use client"
-import { ArrowsDownUp, WarningCircle } from "@phosphor-icons/react"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { ArrowsDownUp, WarningCircle } from "@phosphor-icons/react"
 
+import { formatCurrency, getCurrencyValue } from "@/app/helpers/amount"
+import { getPaymentDetails } from "@/app/helpers/get-price"
 import { CurrencyInput } from "@/components/shared/input"
-import { getCurrencyValue } from "@/app/helpers/amount"
-import { SATS_PER_BTC } from "@/config/constants"
-import { Button, Input } from "@/components"
+import { Button, Input, Spinner } from "@/components"
+import { ExchangeRateProps } from "@/types/price"
 
 interface Props {
+	exchangeRate: ExchangeRateProps["data"]
 	fields: {
 		amount: string
 		currency: string
@@ -21,23 +23,24 @@ interface Props {
 	setAmountInSats: (value: string) => void
 	setDepositInfo: Dispatch<
 		SetStateAction<{
-			bankName: string
 			accountNumber: string
-			amountPayable: string
-			charges: string
+			accountName: string
+			bankName: string
+			paymentReference: string
 		}>
 	>
 	next: () => void
 }
 
 const CurrencyList = ["NGN", "USD", "EUR", "GBP", "CAD", "SATS"]
-const CHARGES = 230
 
 const Init = (props: Props) => {
 	const [reversed, setReversed] = useState(false)
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState("")
 	const { fields, handleChange } = props
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		const { amount, walletAddress } = fields
 		if (!amount) {
 			return alert("Please enter amount!")
@@ -45,24 +48,36 @@ const Init = (props: Props) => {
 		if (!walletAddress) {
 			return alert("Please enter wallet address!")
 		}
-		props.setDepositInfo({
-			accountNumber: "988852055355",
-			amountPayable: (Number(amount) + CHARGES).toString(),
-			bankName: "Paystack Titan",
-			charges: CHARGES.toString(),
-		})
-		props.next()
+		setLoading(true)
+		try {
+			const { amount, amountInSats, narration, walletAddress } = fields
+			const res = await getPaymentDetails({
+				amount,
+				amountInSats,
+				walletAddress,
+				narration,
+			})
+			if (res instanceof Error) {
+				setError(res.message)
+				setLoading(false)
+			}
+			props.setDepositInfo(res.data)
+			props.next()
+		} catch (error) {
+			if (error instanceof Error) {
+				setError(error.message)
+				setLoading(false)
+			}
+		}
 	}
 
 	useEffect(() => {
-		// ? Where are the params supposed to come from?
 		const { amountInSats } = getCurrencyValue({
 			amount: fields.amount,
-			pricePerSat: SATS_PER_BTC,
-			pricePerUsd: 0,
+			pricePerSat: props.exchangeRate.pricePerSat,
+			pricePerUsd: props.exchangeRate.pricePerUsd,
 		})
 		props.setAmountInSats(amountInSats.toString())
-		//
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fields.amount])
 
@@ -112,7 +127,7 @@ const Init = (props: Props) => {
 				</div>
 				<p className="flex items-center gap-1 text-xs text-black-400">
 					<WarningCircle className="text-alt-orange-100" />
-					Exchange rate: 1BTC ={" "}
+					Exchange rate: 1BTC = {formatCurrency(props.exchangeRate.pricePerBtc)}
 				</p>
 			</div>
 			<div className="my-6">
@@ -134,8 +149,12 @@ const Init = (props: Props) => {
 					label="Narration"
 				/>
 			</div>
-			<Button type="button" onClick={handleSubmit} width="w-full">
-				Buy Now
+			<Button
+				type="button"
+				onClick={handleSubmit}
+				disabled={loading}
+				width="w-full">
+				{loading ? <Spinner /> : "Buy Now"}
 			</Button>
 		</div>
 	)

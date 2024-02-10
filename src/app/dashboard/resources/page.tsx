@@ -1,7 +1,9 @@
 import React from "react"
 
+import ComingSoon from "@/components/coming-soon"
+
 const Page = () => {
-	return <div>Page</div>
+	return <ComingSoon />
 }
 
 export default Page

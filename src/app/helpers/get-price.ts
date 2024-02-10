@@ -1,12 +1,17 @@
 "use server"
 
-import { auth } from "@/auth"
 import endpoints from "@/config/endpoints"
+import { auth } from "@/auth"
+import {
+	ExchangeRateProps,
+	PaymentDetailsProps,
+	PaymentStatusProps,
+} from "@/types/price"
 
-export const getExchangeRate = async () => {
+export const getExchangeRate = async (): Promise<ExchangeRateProps | Error> => {
 	const session = await auth()
 	if (!session) {
-		return null
+		return new Error("No session found!")
 	}
 	const { accessToken } = session
 	const url = endpoints().price.btc
@@ -18,8 +23,64 @@ export const getExchangeRate = async () => {
 		next: { revalidate: 30, tags: ["price"] },
 	})
 	if (!response.ok) {
-		return { error: "Failed to fetch exchange rate" }
+		return new Error("Failed to fetch exchange rate!")
 	}
 	const data = await response.json()
-	return data
+	return data as ExchangeRateProps
+}
+
+interface PaymentPayload {
+	amount: string | number
+	amountInSats: string | number
+	walletAddress: string
+	narration?: string
+}
+
+export const getPaymentDetails = async (
+	payload: PaymentPayload
+): Promise<PaymentDetailsProps> => {
+	const session = await auth()
+	if (!session) {
+		throw new Error("No session found!")
+	}
+	const { accessToken } = session
+	const url = endpoints().payment["get-details"]
+	const response = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify(payload),
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			"Content-Type": "application/json",
+		},
+		next: { revalidate: 60, tags: ["paid"] },
+	})
+	if (!response.ok) {
+		throw new Error("Failed to fetch payment details!")
+	}
+	const data = await response.json()
+	return data as PaymentDetailsProps
+}
+
+export const confirmPayment = async (
+	referenceNumber: string
+): Promise<PaymentStatusProps | Error> => {
+	const session = await auth()
+	if (!session) {
+		return new Error("No session found!")
+	}
+	const { accessToken } = session
+	const url = endpoints().payment["get-status"]
+	const response = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify({ referenceNumber }),
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			"Content-Type": "application/json",
+		},
+	})
+	if (!response.ok) {
+		return new Error("Failed to fetch payment details!")
+	}
+	const data = await response.json()
+	return data as PaymentStatusProps
 }

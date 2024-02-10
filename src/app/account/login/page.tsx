@@ -22,8 +22,8 @@ const Page = () => {
 		if (!formFields.email || !formFields.password) {
 			return setError("Incomplete fields!")
 		}
+		setLoading(true)
 		try {
-			setLoading(true)
 			const res = await signIn("credentials", {
 				username: formFields.email,
 				password: formFields.password,
@@ -32,14 +32,16 @@ const Page = () => {
 			})
 			if (res && !res.ok) {
 				setError(String(res.error))
+				setLoading(false)
+				return
 			}
 			setLoading(false)
 			router.push(callbackUrl)
 		} catch (error) {
 			if (error instanceof Error) {
 				setError(String(error.message))
+				setLoading(false)
 			}
-			setLoading(false)
 		}
 	}
 

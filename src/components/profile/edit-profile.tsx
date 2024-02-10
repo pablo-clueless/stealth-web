@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 
+import { updateProfile } from "@/app/helpers/get-profile"
 import { Button, Input, Spinner } from ".."
 
 interface Props {
@@ -21,6 +22,9 @@ const EditProfile = (props: Props) => {
 
 	const handleSubmit = async () => {
 		console.log(fields)
+		try {
+			const res = await updateProfile(fields)
+		} catch (error) {}
 	}
 
 	return (

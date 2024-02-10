@@ -49,7 +49,7 @@ const Input = (props: Props) => {
 				<label htmlFor={props.name} className="mb-1 font-satoshi text-sm">
 					{props.label}
 				</label>
-				<select className="h-12 w-full rounded border bg-transparent p-2 transition-all duration-300 focus:bg-alt-orange-100">
+				<select className="h-[60px] w-full rounded border bg-transparent p-2 transition-all duration-300 focus:bg-alt-orange-100">
 					{props.children}
 				</select>
 				<p className="text-xs text-red-600">
@@ -64,7 +64,7 @@ const Input = (props: Props) => {
 			<label htmlFor={props.name} className="mb-1 font-satoshi text-sm">
 				{props.label}
 			</label>
-			<div className="flex h-12 w-full items-center gap-1 rounded border p-2 transition-all duration-300 focus-within:border-alt-orange-100">
+			<div className="flex h-[60px] w-full items-center gap-1 rounded border p-2 transition-all duration-300 focus-within:border-alt-orange-100">
 				<input
 					type={showPassword ? "text" : props.typed}
 					className="h-full w-full rounded bg-transparent"
@@ -97,12 +97,14 @@ type CurrencyInputProps = {
 	disableSelect?: boolean
 	note?: string
 	error?: string
+	label?: string
 }
 
 export const CurrencyInput = (props: CurrencyInputProps) => {
 	return (
 		<div className="my-1 w-full">
-			<div className="flex h-12 w-full items-center rounded border transition-all duration-300 focus-within:border-alt-orange-100">
+			<label htmlFor="" className="mb-1 font-satoshi text-sm">{props.label}</label>
+			<div className="flex h-[60px] w-full items-center rounded border transition-all duration-300 focus-within:border-alt-orange-100">
 				<input
 					type="number"
 					name={props.inputName}

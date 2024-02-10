@@ -2,20 +2,38 @@
 import { Check } from "@phosphor-icons/react"
 import { useEffect, useState } from "react"
 
+import { confirmPayment } from "@/app/helpers/get-price"
 import { formatCurrency } from "@/app/helpers/amount"
 import { formatTime } from "@/app/helpers/time"
 import { Button } from ".."
 
-const WAIT_PERIOD_IN_SECONDS = 60
+const WAIT_PERIOD_IN_SECONDS = 180
 
 interface Props {
 	amountPayable: string
-	isPaymentConfirmed: boolean
+	paymentReference: string
+	setTxnHash: (txnHash: string) => void
 	next: () => void
 }
 
 const Processing = (props: Props) => {
 	const [timer, setTimer] = useState(WAIT_PERIOD_IN_SECONDS)
+
+	useEffect(() => {
+		const handleConfirmPayment = async () => {
+			try {
+				const res = await confirmPayment(props.paymentReference)
+				if (res instanceof Error) {
+					console.log(res)
+					return
+				}
+				const { data } = res
+				console.log(data)
+				props.next()
+			} catch (error) {}
+		}
+		handleConfirmPayment()
+	}, [props, props.paymentReference])
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -24,11 +42,6 @@ const Processing = (props: Props) => {
 		return () => clearInterval(interval)
 	})
 
-	useEffect(() => {
-		if (timer === 0 && props.isPaymentConfirmed) props.next()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [timer])
-
 	return (
 		<div className="h-full w-full">
 			<p className="font-satoshi text-[28px] font-medium">Pay Online</p>
@@ -36,7 +49,7 @@ const Processing = (props: Props) => {
 			<div className="mb-16 mt-8 w-full">
 				<p className="text-white-300">You are to pay</p>
 				<p className="font-satoshi text-[28px] font-medium">
-					{formatCurrency(props.amountPayable)}
+					{formatCurrency(+props.amountPayable + 230)}
 				</p>
 			</div>
 			<p className="text-center text-xl font-medium">

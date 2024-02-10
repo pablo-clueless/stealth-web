@@ -20,8 +20,9 @@ export async function POST(request: Request, response: NextResponse) {
 		})
 
 		if (res.status === 201 || res.ok) {
+			const data = await res.json()
 			return NextResponse.json(
-				{ success: true, message: "User created" },
+				{ success: true, message: "User created", data },
 				{ status: 201 }
 			)
 		} else if (res.status === 400) {
