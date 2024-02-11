@@ -4,7 +4,7 @@ import { getProfile } from "../helpers/get-profile"
 import Client from "./client"
 
 const Page = async () => {
-	const transactions = await getTransactions()
+	let transactions = await getTransactions()
 	const rate = await getExchangeRate()
 	const profile = await getProfile()
 
@@ -28,6 +28,10 @@ const Page = async () => {
 				<p className="mt-2 text-sm text-gray-500">{profile.message}</p>
 			</div>
 		)
+	}
+
+	if (transactions instanceof Error) {
+		transactions = []
 	}
 
 	return (

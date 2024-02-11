@@ -28,20 +28,20 @@ export const getProfile = async (): Promise<UserProps | Error> => {
 interface UpdateUserDto {
 	firstName?: string
 	lastName?: string
-	email?: string
-	nationality?: string
-	walletAddress?: string
+	login: string
 }
 
-export const updateProfile = async (payload: UpdateUserDto) => {
+export const updateProfile = async (
+	payload: UpdateUserDto
+): Promise<any | Error> => {
 	const session = await auth()
 	if (!session) {
-		throw new Error("No session found")
+		return new Error("No session found")
 	}
 	const { accessToken } = session
 	const url = ""
 	const res = await fetch(url, {
-		method: "PUT",
+		method: "POST",
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 			"Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const updateProfile = async (payload: UpdateUserDto) => {
 		body: JSON.stringify(payload),
 	})
 	if (!res.ok) {
-		throw new Error("Failed to update user profile")
+		return new Error("Failed to update user profile")
 	}
 	const data = await res.json()
 	return data

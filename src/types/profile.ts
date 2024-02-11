@@ -26,4 +26,10 @@ export type UserProps = {
 	lastModifiedDate: string
 	authorities: string[]
 	admin: false
+	accountDetail?: {
+		accountNumber: string
+		accountName: string
+		bankName: string
+		status: string
+	}
 }

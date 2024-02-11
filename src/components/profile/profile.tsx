@@ -17,7 +17,7 @@ const Profile = (props: UserProps) => {
 		<>
 			<Dialog isOpen={openModal} onDismiss={() => setOpenModal(false)} large>
 				<div className="min-h-[50dvh] w-full bg-black-100">
-					<EditProfile onDismiss={() => setOpenModal(false)} />
+					<EditProfile user={props} onDismiss={() => setOpenModal(false)} />
 				</div>
 			</Dialog>
 			<div className="h-[644px] w-full rounded-lg border border-black-500 bg-black-700 p-10">
@@ -41,7 +41,7 @@ const Profile = (props: UserProps) => {
 						<PencilSimpleLine size={20} /> Edit Profile
 					</Button>
 				</div>
-				<hr className="my-10 w-full" />
+				<hr className="my-6 w-full" />
 				<div className="grid w-full grid-cols-3 gap-5">
 					<div className="w-full">
 						<p className="font-bold">Person Information</p>
@@ -51,12 +51,27 @@ const Profile = (props: UserProps) => {
 					</div>
 					<div className="col-span-2 flex w-2/3 flex-col gap-5">
 						<div className="grid w-full grid-cols-2 gap-5">
-							<Input typed="text" defaultValue={props.firstName} label="First Name" />
-							<Input typed="text" defaultValue={props.lastName} label="Last Name" />
+							<Input
+								typed="text"
+								defaultValue={props.firstName}
+								label="First Name"
+								disabled
+							/>
+							<Input
+								typed="text"
+								defaultValue={props.lastName}
+								label="Last Name"
+								disabled
+							/>
 						</div>
-						<Input typed="email" defaultValue={props.email} label="Email Address" />
-						<Input typed="text" label="Wallet Address" />
-						<Input typed="text" label="Nationality" />
+						<Input
+							typed="email"
+							defaultValue={props.email}
+							label="Email Address"
+							disabled
+						/>
+						<Input typed="text" label="Wallet Address" disabled />
+						<Input typed="text" label="Nationality" disabled />
 					</div>
 				</div>
 			</div>

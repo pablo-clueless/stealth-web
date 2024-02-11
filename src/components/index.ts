@@ -5,3 +5,4 @@ export { default as Spinner } from "./shared/spinner"
 export { default as TabPanel } from "./shared/tab-panel"
 
 export { default as Dialog } from "./dialog"
+export { default as NavButton } from "./nav-button"

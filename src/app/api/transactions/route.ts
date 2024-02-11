@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
+import endpoints from "@/config/endpoints"
 
 export async function GET(request: NextRequest, response: NextResponse) {
 	try {
-		const res = await fetch("http://localhost:8080/api/transactions", {
+		const url = endpoints().transactions.list
+		const res = await fetch(url, {
 			method: "GET",
 			headers: { "Content-Type": "application/json" },
 		})

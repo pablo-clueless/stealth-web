@@ -25,7 +25,7 @@ const Avatar = (props: Props) => {
 			) : (
 				<div className="grid h-full w-full place-items-center rounded-full">
 					<p className="text-5xl font-bold uppercase">
-						{props.email.substring(0, 1)}
+						{!props.name ? props.email.substring(0, 1) : getChars(props.name)}
 					</p>
 				</div>
 			)}

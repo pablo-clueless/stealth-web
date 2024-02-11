@@ -52,13 +52,24 @@ const endpoints = (params?: string | number) => {
 		"get-status": `${baseUrl}/payment/paid`,
 	}
 
+	const account = {
+		"edit-profile": `${baseUrl}/account`,
+	}
+
+	const transactions = {
+		"get-by-id": `${baseUrl}/transactions/${params}`,
+		list: `${baseUrl}/transactions`,
+	}
+
 	return {
 		user,
 		auth,
+		account,
 		wallet,
 		dca,
 		price,
 		payment,
+		transactions,
 	}
 }
 

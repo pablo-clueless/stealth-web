@@ -3,18 +3,20 @@ import { useState } from "react"
 
 import { updateProfile } from "@/app/helpers/get-profile"
 import { Button, Input, Spinner } from ".."
+import { UserProps } from "@/types/profile"
 
 interface Props {
 	onDismiss: () => void
+	user: UserProps
 }
 
 const EditProfile = (props: Props) => {
+	const [loading, setLoading] = useState(false)
 	const [fields, setFields] = useState({
-		firstName: "",
-		lastName: "",
-		email: "",
-		nationality: "",
-		walletAddress: "",
+		firstName: props.user.firstName,
+		lastName: props.user.lastName,
+		email: props.user.email,
+		login: props.user.email,
 	})
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -23,8 +25,13 @@ const EditProfile = (props: Props) => {
 	const handleSubmit = async () => {
 		console.log(fields)
 		try {
+			setLoading(true)
 			const res = await updateProfile(fields)
-		} catch (error) {}
+			console.log(res)
+			setLoading(false)
+		} catch (error) {
+			setLoading(false)
+		}
 	}
 
 	return (
@@ -37,12 +44,14 @@ const EditProfile = (props: Props) => {
 						name="firstName"
 						onChange={handleChange}
 						label="First Name"
+						defaultValue={props.user.firstName}
 					/>
 					<Input
 						typed="text"
 						name="lastName"
 						onChange={handleChange}
-						label="First Name"
+						label="Last Name"
+						defaultValue={props.user.lastName}
 					/>
 				</div>
 				<div className="grid w-full grid-cols-2 gap-6">
@@ -51,6 +60,7 @@ const EditProfile = (props: Props) => {
 						name="email"
 						onChange={handleChange}
 						label="Email Address"
+						defaultValue={props.user.email}
 					/>
 					<Input
 						typed="text"
@@ -71,7 +81,7 @@ const EditProfile = (props: Props) => {
 					Discard
 				</Button>
 				<Button type="submit" width="w-full">
-					Save Changes
+					{loading ? <Spinner /> : "Save Changes"}
 				</Button>
 			</div>
 		</form>
