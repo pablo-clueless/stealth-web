@@ -25,7 +25,7 @@ const Authentication = (props: UserProps) => {
 					</div>
 				</div>
 			</div>
-			<hr className="my-10 w-full" />
+			<hr className="my-6 w-full" />
 			<div className="grid w-full grid-cols-3 gap-5">
 				<div className="w-full">
 					<p className="font-bold">2 Factor Authentication</p>
