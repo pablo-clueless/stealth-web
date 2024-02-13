@@ -5,7 +5,18 @@ import { TransactionProps } from "@/types/transactions"
 import Form from "./form"
 
 const Page = async () => {
-	const transactions: TransactionProps[] = await getTransactions()
+	const transactions = await getTransactions()
+
+	if (transactions instanceof Error) {
+		return (
+			<div className="flex h-screen flex-col items-center justify-center">
+				<h1 className="mt-4 font-satoshi text-lg font-bold">
+					Failed to fetch transactions!
+				</h1>
+				<p className="mt-2 text-sm text-gray-500">{transactions.message}</p>
+			</div>
+		)
+	}
 
 	const handleQuery = (query: string) => {
 		console.log(query)
