@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 
 import { confirmPayment } from "@/app/helpers/get-price"
 import { formatCurrency } from "@/app/helpers/amount"
+import { PaymentStatusProps } from "@/types/price"
 import { formatTime } from "@/app/helpers/time"
 import { Button } from ".."
 
@@ -19,21 +20,25 @@ interface Props {
 const Processing = (props: Props) => {
 	const [timer, setTimer] = useState(WAIT_PERIOD_IN_SECONDS)
 
-	useEffect(() => {
-		const handleConfirmPayment = async () => {
-			try {
-				const res = await confirmPayment(props.paymentReference)
-				if (res instanceof Error) {
-					console.log(res)
-					return
-				}
-				const { data } = res
-				console.log(data)
+	const handleConfirmPayment = async () => {
+		try {
+			const res = await confirmPayment(props.paymentReference)
+			if (res instanceof Error) {
+				console.log(res)
+				return
+			}
+			const { data } = res as PaymentStatusProps
+			if (data.paymentState === "CONFIRMED" && timer < 1) {
 				props.next()
-			} catch (error) {}
-		}
+			}
+		} catch (error) {}
+	}
+
+	useEffect(() => {
 		handleConfirmPayment()
-	}, [props, props.paymentReference])
+		// call this function once at load, then subsequently by user to confirm payment
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [props.paymentReference])
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -83,17 +88,15 @@ const Processing = (props: Props) => {
 					</p>
 				</div>
 			</div>
-			{timer > 0 && (
-				<Button
-					type="button"
-					onClick={props.next}
-					width={`mx-auto w-[240px] ${
-						timer > 0 ? "bg-black-600 " : "bg-alt-orange-500"
-					}`}
-					disabled>
-					Please wait for {formatTime(timer)} minutes
-				</Button>
-			)}
+			<Button
+				type="button"
+				onClick={props.next}
+				width={`mx-auto w-[240px] ${
+					timer > 0 ? "bg-black-600 " : "bg-alt-orange-100"
+				}`}
+				disabled={timer > 0}>
+				{timer > 0 ? `Please wait for ${formatTime(timer)} minutes` : "Proceed"}
+			</Button>
 		</div>
 	)
 }

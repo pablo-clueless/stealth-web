@@ -117,14 +117,14 @@ export const CurrencyInput = (props: CurrencyInputProps) => {
 			<label htmlFor="" className="mb-1 font-satoshi text-sm">
 				{props.label}
 			</label>
-			<div className="flex h-[60px] w-full items-center rounded border transition-all duration-300 focus-within:border-alt-orange-100">
+			<div className="flex h-[60px] w-full items-center rounded border bg-black-100 pr-2 transition-all duration-300 focus-within:border-alt-orange-100">
 				<input
 					type="number"
 					name={props.inputName}
 					value={props.amount}
 					onChange={props.handleAmountChange}
 					min={0}
-					className="h-full w-5/6 rounded-l bg-black-700 p-2"
+					className="h-full w-3/4 rounded-l bg-black-700 p-2"
 					disabled={props.disableInput}
 				/>
 				<select
@@ -132,7 +132,7 @@ export const CurrencyInput = (props: CurrencyInputProps) => {
 					value={props.currency}
 					onChange={props.handleCurrencyChange}
 					disabled={props.disableSelect}
-					className="h-full w-1/6 cursor-pointer rounded-r bg-black-100 px-1 text-white-100">
+					className="h-full w-1/4 cursor-pointer rounded-r bg-black-100 px-3 text-white-100">
 					{props.children}
 				</select>
 			</div>

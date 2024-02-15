@@ -1,4 +1,5 @@
 "use client"
+
 import { ArrowsDownUp, Copy, WarningCircle } from "@phosphor-icons/react"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
@@ -147,7 +148,7 @@ const Init = (props: Props) => {
 						</button>
 					}
 				/>
-				<p className="text-xs">Please paste in your hardware wallet address here</p>
+				<p className="text-xs">Please paste in your wallet address here</p>
 			</div>
 			<div className="mb-28 mt-6">
 				<Input

@@ -45,6 +45,11 @@ const Client = ({ exchangeRate: { data }, profile, transactions }: Props) => {
 		setOpenModal(true)
 	}
 
+	const closeModal = () => {
+		setOpenModal(false)
+		setFields({ ...fields, amount: "" })
+	}
+
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setError("")
@@ -54,7 +59,7 @@ const Client = ({ exchangeRate: { data }, profile, transactions }: Props) => {
 
 	return (
 		<>
-			<Dialog isOpen={openModal} onDismiss={() => setOpenModal(false)}>
+			<Dialog isOpen={openModal} onDismiss={closeModal}>
 				<InstantBuy
 					amount={fields.amount}
 					currency={fields.currency}

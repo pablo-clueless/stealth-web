@@ -58,14 +58,12 @@ export const authOptions: NextAuthOptions = {
 				return false
 			}
 		},
-
 		async jwt({ token, user }) {
 			if (user && user?.id_token) {
 				token.id_token = user.id_token
 			}
 			return token
 		},
-
 		async session({ session, token }: { session: Session; token: JWT }) {
 			session.accessToken = undefined
 			if (token.id_token) {
@@ -81,6 +79,12 @@ export const authOptions: NextAuthOptions = {
 				session.user.role = decoded.auth
 			}
 			return session
+		},
+	},
+	events: {
+		signOut: async (message) => {
+			const { token } = message
+			token.id_token = undefined
 		},
 	},
 }

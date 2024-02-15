@@ -11,14 +11,9 @@ const Page = () => {
 	const router = useRouter()
 
 	const [formFields, setFormFields] = useState({ email: "", password: "" })
+	const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState("")
-
-	let callbackUrl = "/dashboard"
-	callbackUrl =
-		searchParams.get("callbackUrl") === "/"
-			? "/dashboard"
-			: String(searchParams.get("callbackUrl"))
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		setFormFields({ ...formFields, [e.target.name]: e.target.value })

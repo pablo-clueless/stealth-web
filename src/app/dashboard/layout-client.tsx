@@ -36,14 +36,14 @@ const DashboardLayoutClient = ({
 				description="Do you really want to sign out?"
 				type="error"
 				large>
-				<div className="mt-10 flex w-2/3 items-center justify-between">
+				<div className="mt-10 flex w-3/5 items-center justify-between">
 					<Button
 						type="button"
 						onClick={() => setIsOpen(false)}
-						width="bg-black-600 w-[110px]">
+						width="bg-black-600 w-[160px]">
 						Cancel
 					</Button>
-					<Button type="button" onClick={signOutFn} width="w-[110px]">
+					<Button type="button" onClick={signOutFn} width="w-[160px]">
 						Log Out
 					</Button>
 				</div>
