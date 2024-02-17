@@ -3,7 +3,7 @@
 import { useState } from "react"
 
 import { TransactionProps } from "@/types/transactions"
-import { formatBtcAdress } from "@/app/helpers/string"
+import { formatBtcAddress } from "@/app/helpers/string"
 import TransactionItem from "./transaction-item"
 import { formatDate } from "@/app/helpers/time"
 import { Dialog } from "."
@@ -74,7 +74,7 @@ export const TableBody = ({
 								<div className="flex flex-1"></div>
 								<div className="flex flex-1">{}</div>
 								<div className="flex flex-1">
-									{formatBtcAdress(transaction.walletAddress)}
+									{formatBtcAddress(transaction.walletAddress)}
 								</div>
 								<div className="flex flex-1">
 									<p
