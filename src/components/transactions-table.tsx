@@ -1,8 +1,12 @@
 "use client"
 
-import React from "react"
+import { useState } from "react"
 
 import { TransactionProps } from "@/types/transactions"
+import { formatBtcAdress } from "@/app/helpers/string"
+import TransactionItem from "./transaction-item"
+import { formatDate } from "@/app/helpers/time"
+import { Dialog } from "."
 
 interface Props {
 	transactions: TransactionProps[]
@@ -10,30 +14,32 @@ interface Props {
 
 const StatusColor = {
 	SUCCESSFUL: "bg-green-1200 text-green-100",
-	PENDING: "bg-orange-1200 text-orange-1100",
+	IN_PROGRESS: "bg-orange-1200 text-orange-100",
+	PENDING: "bg-orange-1200 text-orange-100",
 	FAILED: "bg-red-1200 text-red-100",
 }
 
 const TransactionsTable = ({ transactions }: Props) => {
 	return (
-		<div className="h-[77vh] w-full overflow-hidden rounded-md border border-white-700 bg-black-700 p-6 text-white-300">
-			<TableHead />
-			<hr className="my-6 border-white-700" />
-			<TableBody transactions={transactions} />
-		</div>
+		<>
+			<div className="h-[77vh] w-full overflow-hidden rounded-md border border-white-700 bg-black-700 p-6 text-white-300">
+				<TableHead />
+				<TableBody transactions={transactions} />
+			</div>
+		</>
 	)
 }
 
 export default TransactionsTable
 
 export const TableHead = () => (
-	<div className="grid w-full grid-cols-6 rounded-md">
-		<p className="">No.</p>
-		<p className="">Date</p>
-		<p className="">Amount</p>
-		<p className="">Value</p>
-		<p className="">Wallet Address</p>
-		<p className="">Status</p>
+	<div className="flex w-full items-center gap-1 border-b px-2 py-5">
+		<p className="w-[100px]">No.</p>
+		<p className="flex flex-1">Date</p>
+		<p className="flex flex-1">Amount</p>
+		<p className="flex flex-1">Value</p>
+		<p className="flex flex-1">Wallet Address</p>
+		<p className="flex flex-1">Status</p>
 	</div>
 )
 
@@ -42,21 +48,47 @@ export const TableBody = ({
 }: {
 	transactions: TransactionProps[]
 }) => {
+	const [selected, setSelected] = useState<TransactionProps | null>(null)
+
 	return (
 		<>
-			{!transactions.length ? (
-				<div className="grid w-full place-items-center py-20">
-					<p className="font-satoshi text-xl font-medium">No transactions yet.</p>
-				</div>
-			) : (
-				<div className="w-full">
-					{transactions.map((transaction) => (
-						<div
-							key={transaction.id}
-							className={`${StatusColor[transaction.status]}`}></div>
-					))}
-				</div>
-			)}
+			<Dialog isOpen={!!selected} onDismiss={() => setSelected(null)}>
+				{selected && <TransactionItem transaction={selected} />}
+			</Dialog>
+			<div className="w-full">
+				{!transactions.length ? (
+					<div className="grid w-full place-items-center py-20">
+						<p className="font-satoshi text-xl font-medium">No transactions yet.</p>
+					</div>
+				) : (
+					<div className="w-full">
+						{transactions.map((transaction, index) => (
+							<div
+								key={transaction.id}
+								onClick={() => setSelected(transaction)}
+								className="hover flex w-full cursor-pointer items-center gap-1 px-2 py-4 transition-all hover:bg-black-600">
+								<div className="w-[100px]">{index + 1}</div>
+								<div className="flex flex-1">
+									{formatDate(new Date(transaction.createdDate))}
+								</div>
+								<div className="flex flex-1"></div>
+								<div className="flex flex-1">{}</div>
+								<div className="flex flex-1">
+									{formatBtcAdress(transaction.walletAddress)}
+								</div>
+								<div className="flex flex-1">
+									<p
+										className={`w-fit rounded p-1 text-[10px] capitalize ${
+											StatusColor[transaction.transactionStatus]
+										}`}>
+										{transaction.transactionStatus.split("_").join(" ")}
+									</p>
+								</div>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
 		</>
 	)
 }

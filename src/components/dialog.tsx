@@ -1,4 +1,5 @@
 "use client"
+
 import { CheckCircle, WarningCircle, XCircle } from "@phosphor-icons/react"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import * as Dialog from "@radix-ui/react-dialog"
@@ -18,10 +19,14 @@ interface CustomDialogProps {
 }
 
 const DialogIcon = {
-	error: <XCircle className="my-8 text-9xl text-red-500" />,
-	success: <CheckCircle className="my-8 text-9xl text-green-500" />,
-	warning: <WarningCircle className="my-8 text-9xl text-amber-500" />,
-	info: <WarningCircle className="my-8 text-9xl text-blue-500" />,
+	error: <XCircle weight="fill" className="my-8 text-9xl text-red-100" />,
+	success: (
+		<CheckCircle weight="fill" className="my-8 text-9xl text-green-100" />
+	),
+	warning: (
+		<WarningCircle weight="fill" className="my-8 text-9xl text-orange-100" />
+	),
+	info: <WarningCircle weight="fill" className="my-8 text-9xl text-blue-500" />,
 }
 
 const CustomDialog = ({

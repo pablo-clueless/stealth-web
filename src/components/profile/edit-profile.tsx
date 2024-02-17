@@ -23,7 +23,6 @@ const EditProfile = (props: Props) => {
 		setFields({ ...fields, [e.target.name]: e.target.value })
 
 	const handleSubmit = async () => {
-		console.log(fields)
 		try {
 			setLoading(true)
 			const res = await updateProfile(fields)

@@ -39,7 +39,7 @@ export const updateProfile = async (
 		return new Error("No session found")
 	}
 	const { accessToken } = session
-	const url = ""
+	const url = endpoints().account["edit-profile"]
 	const res = await fetch(url, {
 		method: "POST",
 		headers: {

@@ -16,8 +16,6 @@ export const getTransactions = async (): Promise<
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 		},
-		// revalidate data every 30 seconds
-		next: { revalidate: 30, tags: ["price"] },
 	})
 	if (!response.ok) {
 		return new Error("Failed to fetch exchange rate!")

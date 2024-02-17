@@ -12,7 +12,7 @@ const Success = (props: Props) => {
 	return (
 		<div className="flex h-full w-full flex-col items-center">
 			<div className="my-8">
-				<WarningOctagon className="text-9xl text-alt-orange-100" />
+				<WarningOctagon weight="fill" className="text-9xl text-alt-orange-100" />
 			</div>
 			<p className="font-satoshi text-4xl font-bold">Processing!</p>
 			<p className="my-4 text-center text-xl text-black-300">
