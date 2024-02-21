@@ -63,8 +63,8 @@ const TransactionItem = ({ transaction }: Props) => {
 					<p>Value</p>
 				</div>
 				<div className="flex w-full items-center justify-between text-xl font-medium">
-					<p>{formatCurrency(+transaction.amount)}</p>
-					<p>{transaction.value} BTC</p>
+					<p>{formatCurrency(+transaction.amount || 0)}</p>
+					<p>{transaction.value || 0} BTC</p>
 				</div>
 			</div>
 			<div className="flex w-full flex-col justify-start">

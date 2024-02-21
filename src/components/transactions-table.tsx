@@ -4,6 +4,7 @@ import { useState } from "react"
 
 import { TransactionProps } from "@/types/transactions"
 import { formatBtcAddress } from "@/app/helpers/string"
+import { formatCurrency } from "@/app/helpers/amount"
 import TransactionItem from "./transaction-item"
 import { formatDate } from "@/app/helpers/time"
 import { Dialog } from "."
@@ -71,8 +72,12 @@ export const TableBody = ({
 								<div className="flex flex-1">
 									{formatDate(new Date(transaction.createdDate))}
 								</div>
-								<div className="flex flex-1"></div>
-								<div className="flex flex-1">{}</div>
+								<div className="flex flex-1">
+									{formatCurrency(+transaction.amount || 0)}
+								</div>
+								<div className="flex flex-1">
+									{formatCurrency(+transaction.value || 0)}
+								</div>
 								<div className="flex flex-1">
 									{formatBtcAddress(transaction.walletAddress)}
 								</div>
