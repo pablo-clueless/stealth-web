@@ -8,17 +8,18 @@ import { Button, Dialog, Input, Spinner } from "@/components"
 
 const Page = () => {
 	const searchParams = useSearchParams()
+	const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard"
 	const router = useRouter()
 
 	const [formFields, setFormFields] = useState({ email: "", password: "" })
-	const callbackUrl = searchParams.get("callbackUrl") || "/dashboard"
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState("")
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		setFormFields({ ...formFields, [e.target.name]: e.target.value })
 
-	const formAction = async () => {
+	const formAction = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		if (!formFields.email || !formFields.password) {
 			return setError("Incomplete fields!")
 		}
@@ -63,7 +64,7 @@ const Page = () => {
 				<p className="text-lg">
 					Please enter your login credentials to access your account
 				</p>
-				<form action={formAction} className="mt-10 flex w-full flex-col">
+				<form onSubmit={formAction} className="mt-10 flex w-full flex-col">
 					<div className="flex w-full flex-col gap-6">
 						<Input
 							typed="email"
