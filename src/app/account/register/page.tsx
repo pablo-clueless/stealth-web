@@ -11,6 +11,7 @@ const Page = () => {
 		password: "",
 		confirm_password: "",
 	})
+	const [data, setData] = useState({ data: {}, message: "", success: false })
 	const [passwordsMatch, setPasswordsMatch] = useState(false)
 	const [error, setError] = useState<Error | null>(null)
 
@@ -27,12 +28,14 @@ const Page = () => {
 				},
 			}),
 		mutationKey: ["register"],
-		onSuccess: (data) => {
-			console.log(data)
-		},
-		onError: (error) => {
-			console.log(error)
-			setError(error)
+		onSuccess: (res) => {
+			res.json().then((data: { success: boolean; message: string; data: any }) => {
+				if (!data.success) {
+					setError(new Error(data.message))
+				} else {
+					setData(data)
+				}
+			})
 		},
 	})
 
@@ -58,17 +61,24 @@ const Page = () => {
 
 	return (
 		<>
-			{error && (
-				<Dialog
-					isOpen={error !== null}
-					onDismiss={() => setError(null)}
-					title={error?.message}
-					type="error"
-					large
-					description="">
-					<div></div>
-				</Dialog>
-			)}
+			<Dialog
+				isOpen={!!error}
+				onDismiss={() => setError(null)}
+				title="Registration Error"
+				type="error"
+				large
+				description={error?.message}>
+				<div></div>
+			</Dialog>
+			<Dialog
+				isOpen={data.success}
+				onDismiss={() => setData({ data: {}, message: "", success: false })}
+				title="Registration Success"
+				type="success"
+				large
+				description={data?.message}>
+				<div></div>
+			</Dialog>
 			<div className="h-full w-full">
 				<p className="font-satoshi text-[28px] font-bold">Come On Board</p>
 				<p className="text-lg">
