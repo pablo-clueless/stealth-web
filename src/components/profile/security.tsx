@@ -30,12 +30,12 @@ const Security = (props: UserProps) => {
 		try {
 			setLoading(true)
 			const res = await changePassword({ currentPassword, newPassword })
-			if (res instanceof Error) {
+			if (!res.success && res.status !== 200) {
+				setLoading(false)
 				return setError(res.message)
 			}
-			console.log(res)
-			setData(res?.message)
 			setLoading(false)
+			setData(res?.message)
 		} catch (error) {
 			if (error instanceof Error) {
 				setError(error.message)
@@ -47,15 +47,17 @@ const Security = (props: UserProps) => {
 	return (
 		<>
 			<Dialog
-				isOpen={!!error}
+				isOpen={Boolean(error)}
 				onDismiss={() => setError("")}
-				title="Password Reset Error"
-				description={error}></Dialog>
+				title="Password Reset Failed"
+				description={error}
+				titleClassName={"text-red-500"}></Dialog>
 			<Dialog
 				isOpen={!!data}
 				onDismiss={() => setData("")}
 				title="Password Reset Success"
-				description={data}></Dialog>
+				description={data}
+				titleClassName={"text-green-500"}></Dialog>
 			<div className="h-[644px] w-full rounded-lg border border-black-500 bg-black-700 p-10">
 				<div className="flex w-full items-center justify-between">
 					<div className="flex items-center gap-5">

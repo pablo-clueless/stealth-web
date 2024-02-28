@@ -34,12 +34,13 @@ const Page = () => {
 						<button
 							key={index}
 							onClick={() => setTab(index)}
-							className={`border-b p-4 ${
+							// TODO!: remove 2-FA condition when 2-FA is implemented
+							className={`${item === "2-FA" ? "" : "border-b p-4"} ${
 								tab === index
 									? "border-alt-orange-100 text-alt-orange-100"
 									: "text-white-100"
 							}`}>
-							{item}
+							{item === "2-FA" ? "" : item}
 						</button>
 					))}
 				</div>

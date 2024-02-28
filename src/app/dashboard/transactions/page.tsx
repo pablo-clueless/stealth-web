@@ -1,7 +1,5 @@
-"use server"
 import { getTransactions } from "@/app/helpers/get-transactions"
 import TransactionsTable from "@/components/transactions-table"
-import { TransactionProps } from "@/types/transactions"
 import Form from "./form"
 
 const Page = async () => {
@@ -16,10 +14,6 @@ const Page = async () => {
 				<p className="mt-2 text-sm text-gray-500">{transactions.message}</p>
 			</div>
 		)
-	}
-
-	const handleQuery = (query: string) => {
-		console.log(query)
 	}
 
 	return (

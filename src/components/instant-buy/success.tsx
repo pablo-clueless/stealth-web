@@ -19,16 +19,18 @@ const Success = (props: Props) => {
 				Your Bitcoin purchase is being processed. You can track the progress by
 				clicking the link below or pasting the Hash on any blockchain explorer.
 			</p>
-			<p className="mb-44 max-w-[90%] break-words text-center text-alt-orange-100">
+			{/* // TODO: uncomment when mempool.space is implemented */}
+			{/* <p className="mb-44 max-w-[90%] break-words text-center text-alt-orange-100">
 				{props.txnHash}
-			</p>
-			<Button
+			</p> */}
+			{/* <Button
+				hidden
 				as="a"
 				href={`https://mempool.space/tx/${props.txnHash}`}
 				target="_blank"
 				width="w-full">
 				View Transaction
-			</Button>
+			</Button> */}
 		</div>
 	)
 }

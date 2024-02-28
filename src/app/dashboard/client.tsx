@@ -11,8 +11,9 @@ import { ExchangeRateProps } from "@/types/price"
 import { INT_REGEX } from "@/config/constants"
 import { Button, Dialog } from "@/components"
 import { UserProps } from "@/types/profile"
+import Image from "next/image"
 
-const CurrencyList = ["NGN", "USD", "EUR", "GBP", "CAD"]
+const CurrencyList = ["NGN", "USD"]
 
 interface Props {
 	exchangeRate: ExchangeRateProps
@@ -34,7 +35,7 @@ const Client = ({ exchangeRate: { data }, profile, transactions }: Props) => {
 	) => setFields({ ...fields, [e.target.name]: e.target.value })
 
 	const handleSubmit = async () => {
-		const { amount, currency } = fields
+		const { amount } = fields
 		if (Number(amount) <= 0) {
 			return setError("Please enter an amount greater than 0!")
 		}
@@ -107,8 +108,9 @@ const Client = ({ exchangeRate: { data }, profile, transactions }: Props) => {
 							</Button>
 						</div>
 					</div>
-					<div className="col-span-3 h-full rounded-lg border border-black-500 bg-black-700 p-6">
-						<p className="font-satoshi text-xl font-medium">Market Summary</p>
+					<div className="col-span-3 flex h-full items-center justify-center rounded-lg border border-black-500 bg-black-700 p-6">
+						{/* <p className="font-satoshi text-xl font-medium">Market Summary</p> */}
+						<Image src="/trezor.png" alt="Market Summary" width={300} height={120} />
 					</div>
 				</div>
 				<div className="flex h-[372px] w-full flex-col rounded-lg border border-black-500 bg-black-700 p-6">

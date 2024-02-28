@@ -8,12 +8,20 @@ export const activate = async (key: string) => {
 			method: "GET",
 			headers: { "Content-Type": "application/json" },
 		})
-		if (res && !res.ok) {
-			return new Error()
+		// console.log({ res })
+		if (!res.ok) {
+			throw new Error("Activation failed!")
 		}
-		const data = await res.json()
-		return data
+		return {
+			status: 200,
+			message: "Activation successful!",
+		}
 	} catch (error) {
-		return new Error()
+		const message = error instanceof Error ? error.message : "Activation failed!"
+		const errorInfo = {
+			status: 500,
+			message,
+		}
+		return errorInfo
 	}
 }

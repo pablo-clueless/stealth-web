@@ -2,9 +2,15 @@ import { getTransactions } from "../helpers/get-transactions"
 import { getExchangeRate } from "../helpers/get-price"
 import { getProfile } from "../helpers/get-profile"
 import Client from "./client"
+import { ExpiredSessionError } from "@/shared/error"
+import { redirect } from "next/navigation"
 
 const Page = async () => {
 	let transactions = await getTransactions()
+	if (transactions instanceof Error) {
+		transactions = []
+	}
+
 	const rate = await getExchangeRate()
 	const profile = await getProfile()
 
@@ -20,6 +26,9 @@ const Page = async () => {
 	}
 
 	if (profile instanceof Error) {
+		if (profile instanceof ExpiredSessionError) {
+			redirect("/account/login")
+		}
 		return (
 			<div className="flex h-screen flex-col items-center justify-center">
 				<h1 className="mt-4 font-satoshi text-lg font-bold">
@@ -30,12 +39,12 @@ const Page = async () => {
 		)
 	}
 
-	if (transactions instanceof Error) {
-		transactions = []
-	}
-
 	return (
-		<Client exchangeRate={rate} profile={profile} transactions={transactions} />
+		<Client
+			exchangeRate={rate}
+			profile={profile}
+			transactions={transactions ?? []}
+		/>
 	)
 }
 

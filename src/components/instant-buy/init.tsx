@@ -8,6 +8,7 @@ import { getPaymentDetails } from "@/app/helpers/get-price"
 import { CurrencyInput } from "@/components/shared/input"
 import { Button, Input, Spinner } from "@/components"
 import { ExchangeRateProps } from "@/types/price"
+import { TXN_CHARGE } from "@/config/constants"
 
 interface Props {
 	exchangeRate: ExchangeRateProps["data"]
@@ -34,7 +35,7 @@ interface Props {
 	next: () => void
 }
 
-const CurrencyList = ["NGN", "USD", "EUR", "GBP", "CAD", "SATS"]
+const CurrencyList = ["NGN", "USD", "SATS"]
 
 const Init = (props: Props) => {
 	const [reversed, setReversed] = useState(false)
@@ -43,7 +44,7 @@ const Init = (props: Props) => {
 	const { fields, handleChange } = props
 
 	const handleSubmit = async () => {
-		const { amount, walletAddress } = fields
+		const { amount, amountInSats, narration, walletAddress } = fields
 		if (!amount) {
 			return alert("Please enter amount!")
 		}
@@ -52,9 +53,9 @@ const Init = (props: Props) => {
 		}
 		setLoading(true)
 		try {
-			const { amount, amountInSats, narration, walletAddress } = fields
+			const amountToPay = Number(amount) + TXN_CHARGE
 			const res = await getPaymentDetails({
-				amount,
+				amount: amountToPay,
 				amountInSats,
 				walletAddress,
 				narration,

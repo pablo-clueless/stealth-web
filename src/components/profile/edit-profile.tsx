@@ -25,8 +25,7 @@ const EditProfile = (props: Props) => {
 	const handleSubmit = async () => {
 		try {
 			setLoading(true)
-			const res = await updateProfile(fields)
-			console.log(res)
+			await updateProfile(fields)
 			setLoading(false)
 		} catch (error) {
 			setLoading(false)
@@ -61,19 +60,19 @@ const EditProfile = (props: Props) => {
 						label="Email Address"
 						defaultValue={props.user.email}
 					/>
-					<Input
+					{/* <Input
 						typed="text"
 						name="nationality"
 						onChange={handleChange}
 						label="Nationality"
-					/>
+					/> */}
 				</div>
-				<Input
+				{/* <Input
 					typed="text"
 					name="walletAddress"
 					onChange={handleChange}
 					label="Wallet Address"
-				/>
+				/> */}
 			</div>
 			<div className="mt-36 grid w-full grid-cols-2 gap-6">
 				<Button type="button" onClick={props.onDismiss} width="w-full bg-black-600">

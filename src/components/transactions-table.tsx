@@ -63,34 +63,39 @@ export const TableBody = ({
 					</div>
 				) : (
 					<div className="w-full">
-						{transactions.map((transaction, index) => (
-							<div
-								key={transaction.id}
-								onClick={() => setSelected(transaction)}
-								className="hover flex w-full cursor-pointer items-center gap-1 px-2 py-4 transition-all hover:bg-black-600">
-								<div className="w-[100px]">{index + 1}</div>
-								<div className="flex flex-1">
-									{formatDate(new Date(transaction.createdDate))}
+						{transactions
+							.sort(
+								(a, b) =>
+									Number(new Date(b.createdDate)) - Number(new Date(a.createdDate))
+							)
+							.map((transaction, index) => (
+								<div
+									key={transaction.id}
+									onClick={() => setSelected(transaction)}
+									className="hover flex w-full cursor-pointer items-center gap-1 px-2 py-4 transition-all hover:bg-black-600">
+									<div className="w-[100px]">{index + 1}</div>
+									<div className="flex flex-1">
+										{formatDate(new Date(transaction.createdDate))}
+									</div>
+									<div className="flex flex-1">
+										{formatCurrency(+transaction.amount || 0)}
+									</div>
+									<div className="flex flex-1">
+										{formatCurrency(+transaction.value || 0)}
+									</div>
+									<div className="flex flex-1">
+										{formatBtcAddress(transaction.walletAddress)}
+									</div>
+									<div className="flex flex-1">
+										<p
+											className={`w-fit rounded p-1 text-[10px] capitalize ${
+												StatusColor[transaction.transactionStatus]
+											}`}>
+											{transaction.transactionStatus.split("_").join(" ")}
+										</p>
+									</div>
 								</div>
-								<div className="flex flex-1">
-									{formatCurrency(+transaction.amount || 0)}
-								</div>
-								<div className="flex flex-1">
-									{formatCurrency(+transaction.value || 0)}
-								</div>
-								<div className="flex flex-1">
-									{formatBtcAddress(transaction.walletAddress)}
-								</div>
-								<div className="flex flex-1">
-									<p
-										className={`w-fit rounded p-1 text-[10px] capitalize ${
-											StatusColor[transaction.transactionStatus]
-										}`}>
-										{transaction.transactionStatus.split("_").join(" ")}
-									</p>
-								</div>
-							</div>
-						))}
+							))}
 					</div>
 				)}
 			</div>

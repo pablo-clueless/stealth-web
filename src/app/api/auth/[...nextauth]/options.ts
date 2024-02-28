@@ -69,6 +69,7 @@ export const authOptions: NextAuthOptions = {
 			if (token.id_token) {
 				const decoded: DecodedJwt = jwt_decode(token.id_token)
 				session.accessToken = token.id_token
+				session.expires = new Date(decoded.exp * 1000).toISOString()
 				if (decoded.sub.includes("@")) {
 					token.email = decoded.sub
 					session.user.email = decoded.sub

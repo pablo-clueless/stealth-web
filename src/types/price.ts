@@ -36,7 +36,12 @@ export type PaymentStatusProps = {
 		amountInSats: string
 		walletAddress: string
 		narration: string
-		paymentState: "INITIATED" | "PENDING" | "CONFIRMED" | "FAILED"
+		paymentState:
+			| "INITIATED"
+			| "PENDING"
+			| "ALREADY_PROCESSED"
+			| "PAID"
+			| "FAILED"
 		responseCode: string
 		responseMessage: string
 		paymentReference: string

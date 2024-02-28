@@ -4,3 +4,4 @@ export const PASSWORD_REGEX =
 	/^(?=.*[a-zA-Z0-9])(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[a-z])(?=.*[0-9]).{8,20}$/
 // Regex to validate an integer
 export const INT_REGEX = /^\d*\.?\d*$/
+export const TXN_CHARGE = 230 // in naira

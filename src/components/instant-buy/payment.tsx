@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { formatCurrency } from "@/app/helpers/amount"
 import { formatTime } from "@/app/helpers/time"
 import { Button } from ".."
+import { TXN_CHARGE } from "@/config/constants"
 
 interface Props {
 	amount: string
@@ -17,12 +18,6 @@ interface Props {
 	next: () => void
 	previous: () => void
 }
-
-/** ? Isn't thissupposed to come from the backend?
- * Like I should get something like `amountPayable` from the backend
- * subtract the original amount and then pass that to the component
- */
-const CHARGES = 230
 
 const Payment = (props: Props) => {
 	const [timer, setTimer] = useState(1800)
@@ -57,7 +52,7 @@ const Payment = (props: Props) => {
 				<p className="text-white-300">You are to pay</p>
 				<div className="flex w-full items-center justify-between">
 					<p className="font-satoshi text-[28px] font-medium">
-						{formatCurrency(+amount + CHARGES)}
+						{formatCurrency(Number(amount) + TXN_CHARGE)}
 					</p>
 					<button
 						onClick={copyPaymentDetails}
@@ -83,7 +78,7 @@ const Payment = (props: Props) => {
 				</div>
 				<div className="flex w-full items-center justify-between text-xl font-medium">
 					<p>{formatCurrency(+amount)}</p>
-					<p>{formatCurrency(CHARGES)}</p>
+					<p>{formatCurrency(TXN_CHARGE)}</p>
 				</div>
 			</div>
 			<hr className="w-full" />
@@ -93,7 +88,7 @@ const Payment = (props: Props) => {
 					<p>Expires In</p>
 				</div>
 				<div className="flex w-full items-center justify-between text-xl font-medium">
-					<p>{formatCurrency(+amount + CHARGES)}</p>
+					<p>{formatCurrency(+amount + TXN_CHARGE)}</p>
 					<p className={`${timer > 0 ? "text-green-500" : "text-red-500"}`}>
 						{formatTime(timer)}
 					</p>

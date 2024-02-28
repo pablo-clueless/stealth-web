@@ -19,10 +19,9 @@ export async function POST(request: Request, response: NextResponse) {
 			method: "POST",
 		})
 
-		if (res.status === 201 || res.ok) {
-			const data = await res.json()
+		if (res.status === 201) {
 			return NextResponse.json(
-				{ success: true, message: "User created", data },
+				{ success: true, message: "User created" },
 				{ status: 201 }
 			)
 		} else if (res.status === 400) {
@@ -31,10 +30,7 @@ export async function POST(request: Request, response: NextResponse) {
 				{ status: 400 }
 			)
 		} else {
-			return NextResponse.json(
-				{ success: false, message: "User not created" },
-				{ status: 500 }
-			)
+			throw new Error("Failed to create user")
 		}
 	} catch (error) {
 		return NextResponse.json(

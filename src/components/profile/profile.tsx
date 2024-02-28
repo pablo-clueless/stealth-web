@@ -70,8 +70,10 @@ const Profile = (props: UserProps) => {
 							label="Email Address"
 							disabled
 						/>
-						<Input typed="text" label="Wallet Address" disabled />
-						<Input typed="text" label="Nationality" disabled />
+						<div className="hidden">
+							<Input typed="text" label="Wallet Address" disabled />
+							<Input typed="text" label="Nationality" disabled />
+						</div>
 					</div>
 				</div>
 			</div>

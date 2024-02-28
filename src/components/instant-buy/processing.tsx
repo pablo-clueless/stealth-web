@@ -7,6 +7,7 @@ import { formatCurrency } from "@/app/helpers/amount"
 import { PaymentStatusProps } from "@/types/price"
 import { formatTime } from "@/app/helpers/time"
 import { Button } from ".."
+import { TXN_CHARGE } from "@/config/constants"
 
 const WAIT_PERIOD_IN_SECONDS = 180
 
@@ -24,28 +25,36 @@ const Processing = (props: Props) => {
 		try {
 			const res = await confirmPayment(props.paymentReference)
 			if (res instanceof Error) {
-				console.log(res)
+				alert("An error occurred while confirming payment")
 				return
 			}
 			const { data } = res as PaymentStatusProps
-			if (data.paymentState === "CONFIRMED" && timer < 1) {
+			if (
+				data.paymentState === "PAID" ||
+				(data.paymentState === "ALREADY_PROCESSED" && timer < 1)
+			) {
 				props.next()
 			}
-		} catch (error) {}
+		} catch (error) {
+			alert("An error occurred while confirming payment")
+		}
 	}
 
 	useEffect(() => {
-		handleConfirmPayment()
-		// call this function once at load, then subsequently by user to confirm payment
+		const interval = setInterval(() => {
+			handleConfirmPayment()
+		}, 10000)
+		return () => clearInterval(interval)
+		// we only want to run this effect once when the component mounts
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.paymentReference])
+	}, [])
 
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setTimer((prev) => (prev > 0 ? prev - 1 : 0))
 		}, 1000)
 		return () => clearInterval(interval)
-	})
+	}, [])
 
 	return (
 		<div className="h-full w-full">
@@ -54,7 +63,7 @@ const Processing = (props: Props) => {
 			<div className="mb-16 mt-8 w-full">
 				<p className="text-white-300">You are to pay</p>
 				<p className="font-satoshi text-[28px] font-medium">
-					{formatCurrency(+props.amountPayable + 230)}
+					{formatCurrency(Number(props.amountPayable) + TXN_CHARGE)}
 				</p>
 			</div>
 			<p className="text-center text-xl font-medium">

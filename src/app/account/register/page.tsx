@@ -11,7 +11,7 @@ const Page = () => {
 		password: "",
 		confirm_password: "",
 	})
-	const [data, setData] = useState({ data: {}, message: "", success: false })
+	const [data, setData] = useState({ message: "", success: false })
 	const [passwordsMatch, setPasswordsMatch] = useState(false)
 	const [error, setError] = useState<Error | null>(null)
 
@@ -29,27 +29,34 @@ const Page = () => {
 			}),
 		mutationKey: ["register"],
 		onSuccess: (res) => {
-			res.json().then((data: { success: boolean; message: string; data: any }) => {
-				if (!data.success) {
-					setError(new Error(data.message))
-				} else {
-					setData(data)
-				}
-			})
+			res
+				.json()
+				.then((data: { success: boolean; message: string }) => {
+					if (!data.success) {
+						setError(new Error(data.message))
+					} else {
+						setData(data)
+					}
+				})
+				.catch((err) => {
+					console.log({ err })
+					setError(new Error("Failed to parse response"))
+				})
 		},
 	})
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		setFormFields({ ...formFields, [e.target.name]: e.target.value })
 
-	const formAction = async () => {
+	const formAction = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		const isValid = PASSWORD_REGEX.test(formFields.password)
 		if (!isValid) {
 			alert("Password is not strong enough!")
 			return
 		}
 		if (!passwordsMatch) {
-			alert("Password do not match!")
+			alert("Passwords do not match!")
 			return
 		}
 		mutateAsync({ email: formFields.email, password: formFields.password })
@@ -72,11 +79,16 @@ const Page = () => {
 			</Dialog>
 			<Dialog
 				isOpen={data.success}
-				onDismiss={() => setData({ data: {}, message: "", success: false })}
-				title="Registration Success"
+				onDismiss={() => {
+					setData({ message: "", success: false })
+					if (data.success) {
+						setFormFields({ email: "", password: "", confirm_password: "" })
+					}
+				}}
+				title="Account Created Successfully!"
 				type="success"
 				large
-				description={data?.message}>
+				description={"Please check your e-mail to activate your account"}>
 				<div></div>
 			</Dialog>
 			<div className="h-full w-full">
@@ -85,7 +97,9 @@ const Page = () => {
 					It&apos;s not your Bitcoin until you self-custody it. Start your journey to
 					becoming a Bitcoin owner today.
 				</p>
-				<form action={formAction} className="mt-10 flex h-full w-full flex-col">
+				<form
+					onSubmit={(e) => formAction(e)}
+					className="mt-10 flex h-full w-full flex-col">
 					<div className="flex w-full flex-col gap-6">
 						<Input
 							typed="email"
